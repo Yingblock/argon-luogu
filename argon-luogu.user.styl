@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name                 氩洛谷 Re 2024
-@version              20241011.19.22
+@version              20241114.21.26
 @namespace            https://userstyles.world/style/12397/re-2024
 @description          洛谷美化样式。
 @author               d0j1a1701
@@ -16,6 +16,8 @@
 @var                  checkbox footer-acrylic "底栏亚克力效果" 1
 @var                  checkbox anymore-acrylic "其余亚克力效果" 1
 @var                  checkbox remove-ad "去除洛谷广告" 0
+@var                  checkbox animations "动画" 1
+@var                  checkbox prose-bar "阅读进度条" 1
 @var                  checkbox remove-reply-container "隐藏讨论区「编辑回复」栏" 0
 @var                  checkbox lock-account "纯享壁纸版锁定账户 " 0
 ==/UserStyle== */
@@ -226,13 +228,13 @@ markdown-patch()
                 border-top-left-radius: 0 !important
                 border-top-right-radius: 0 !important
                 border-top: none !important
-        
+
         code
             background codeblock_bg_color !important
             border-radius 5px
             color hljs_base_color !important
             box-shadow none !important
-            
+
             .hljs-doctag,
             .hljs-keyword,
             .hljs-meta .hljs-keyword,
@@ -301,10 +303,10 @@ swal-patch()
         h1, h2, h3, h4, h5, h6
             color post_heading_color !important
         color text_color !important
-    
+
     .swal2-content
         color text_color !important
-    
+
     // 一些带动画的图标
     // 选择器只写了一半是因为逆天 Stylus 编译器会把逗号当作选择器
     .swal2-icon > *[style*='rgba(0'],
@@ -314,8 +316,8 @@ swal-patch()
 cseditor-patch()
     .cs-main,
     .cs-header
+        font-family font-stack-codeblock
         background rgba(acrylic_bg_color,0.5) !important
-
     .cs-toolbar
         & > div > span > span > span > svg
             border none !important
@@ -324,42 +326,49 @@ cseditor-patch()
                 color link_hover_color !important
                 background link_hover_bg_color !important
     .cs-content
-        .cs-main { background: #2e3440!important; color: #d8dee9!important;font-family font-stack-codeblock !important; }
-        div.cm-selected { background: #434c5e!important; }
-        .cm-line { font-family: font-stack-codeblock !important; }
-        .cm-line::selection, .cm-line > span::selection, .cm-line > span > span::selection { background: #3b4252!important; }
-        .cm-line::-moz-selection, .cm-line > span::-moz-selection, .cm-line > span > span::-moz-selection { background: #3b4252!important; }
-        .cm-gutters { background: #2e3440!important; border-right: 0px!important; font-family: font-stack-codeblock !important;}
-        .cm-guttermarker { color: #4c566a!important; }
-        .cm-guttermarker-subtle { color: #4c566a!important; }
-        .cm-linenumber { color: #4c566a!important; }
-        .cm-cursor { border-left: 1px solid #f8f8f0!important; }
-        span.cm-comment { color: #4c566a!important; }
-        span.cm-atom { color: #b48ead!important; }
-        span.cm-number { color: #b48ead!important; }
-        span.cm-comment.cm-attribute { color: #97b757!important; }
-        span.cm-comment.cm-def { color: #bc9262!important; }
-        span.cm-comment.cm-tag { color: #bc6283!important; }
-        span.cm-comment.cm-type { color: #5998a6!important; }
-        span.cm-property, span.cm-attribute { color: #8FBCBB!important; }
-        span.cm-keyword { color: #81A1C1!important; }
-        span.cm-builtin { color: #81A1C1!important; }
-        span.cm-matchingBracket { color: #A3BE8C!important; }
-        span.cm-variable { color: #d8dee9!important; }
-        span.cm-variable-2 { color: #d8dee9!important; }
-        span.cm-variable-3, span.cm-type { color: #d8dee9!important; }
-        span.cm-def { color: #8FBCBB!important; }
-        span.cm-bracket { color: #81A1C1!important; }
-        span.cm-tag { color: #bf616a!important; }
-        span.ͼ7 { color: #b48ead!important; }
-        span.ͼ6.ͼ5 { color: #b48ead!important; }
-        span.cm-error { background: #bf616a!important; color: #f8f8f0!important; }
-        .cm-activeLine { background: #3b4252!important; }
-        .cm-matchingbracket {
-            text-decoration: underline!important;
-            color: white !important;
+        background: #2B2B2B !important;
+        .cs-main { background: #2B2B2B !important; color: #A9B7C6!important; }
+        span.ͼ7 {color: #A9B7C6!important;}
+        span.cs-meta { color: #BBB529!important; }
+        span.cs-number { color: #6897BB!important; }
+        span.cs-keyword { color: #CC7832!important; line-height: 1em!important; font-weight: bold!important; }
+        span.cs-def { color: #A9B7C6!important; font-style: italic!important; }
+        span.cs-variable { color: #A9B7C6!important; }
+        span.cs-variable-2 { color: #A9B7C6!important; }
+        span.cs-variable-3 { color: #9876AA!important; }
+        span.cs-type { color: #AABBCC!important; font-weight: bold!important; }
+        span.cs-property { color: #FFC66D!important; }
+        span.cs-operator { color: #A9B7C6!important; }
+        span.cs-string { color: #6A8759!important; }
+        span.cs-string-2 { color: #6A8759!important; }
+        span.ͼ5, span.ͼc { color: #61A151!important; font-style: italic!important; }
+        span.cs-link { color: #CC7832!important; }
+        span.cs-atom { color: #CC7832!important; }
+        span.cs-error { color: #BC3F3C!important; }
+        span.cs-tag { color: #629755!important; font-weight: bold!important; font-style: italic!important; text-decoration: underline!important; }
+        span.cs-attribute { color: #6897bb!important; }
+        span.cs-qualifier { color: #6A8759!important; }
+        span.cs-bracket { color: #A9B7C6!important; }
+        span.cs-builtin { color: #FF9E59!important; }
+        span.cs-special { color: #FF9E59!important; }
+        span.cs-matchhighlight { color: #FFFFFF!important; background-color: rgba(50, 89, 48, .7)!important; font-weight: normal!important;}
+        span.cs-searching { color: #FFFFFF!important; background-color: rgba(61, 115, 59, .7)!important; font-weight: normal!important;}
+        .cm-cursor { border-left: 1px solid #A9B7C6!important; }
+        .cs-activeline-background { background: #323232!important; }
+        .cm-gutters, .cm-activeLineGutter { background: #313335!important; border-right: 1px solid #313335!important; }
+        .cm-guttermarker { color: #FFEE80!important; }
+        .cm-guttermarker-subtle { color: #D0D0D0!important; }
+        .cs-linenumber { color: #606366!important; }
+        .cs-matchingbracket { background-color: #3B514D!important; color: #FFEF28 !important; font-weight: bold!important; }
+        div.cs-selected { background: #214283!important; }
+        .cm-hints {
+            color: #9C9E9E!important;
+            background-color: #3B3E3F !important;
         }
-        .cm-activeLineGutter { background: none !important;}
+        .cm-hints .cm-hint-active {
+            background-color: #494D4E !important;
+            color: #9C9E9E !important;
+        }
     .cs-footer
         acrylic-bg()
 mdeditor-patch()
@@ -373,6 +382,8 @@ mdeditor-patch()
                     background link_hover_bg_color !important
             .mp-divider
                 color line_color !important
+    .ͼ1 .cm-scroller
+        font-family font-stack-codeblock
     if dark-mode
         cseditor-patch()
     .cs-main
@@ -392,21 +403,25 @@ mdeditor-patch()
         z-index 1 !important
 /* 全局样式 */
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/).*")
+    // 页面展示动画
     @keyframes show
         0%
             transform translateY(2em)
         100%
             transform translateY(0em)
+    // 页面内部小卡片展示动画
     @keyframes inner-show
         0%
             transform translateY(1em)
         100%
             transform translateY(0em)
+    // 题目标题，讨论标题展示动画
     @keyframes title-show
         0%
             transform translateX(-1em)
         100%
             transform translateX(0m)
+    // 输入框选中动画
     @keyframes textarea-checked
         0%
             transform scale(1)
@@ -416,13 +431,7 @@ mdeditor-patch()
             transform scale(0.95)
         100%
             transform scale(1)
-    @keyframes link_hover
-        0%
-            transform-origin 50% 50%
-            transform scaleX(0)
-        100%
-            transform-origin 50% 50%
-            transform scaleX(1)
+    // 头像悬浮动画
     @keyframes avatar-hover
         0%
             transform scale(1)
@@ -432,17 +441,22 @@ mdeditor-patch()
             transform scale(0.9)
         100%
             transform scale(1)
+    // 所有的文字强制折行
     *
         word-wrap break-word
         word-break break-all
-    *:not(button,.CodeMirror-cursor,.frac-line,.combo-wrapper > .text,.cm-cursor,div[data-v-bbdab89a][style*="border-width: 4px;"],.refined-input,input)
+    // 全局设置边框
+    // 除了按钮，输入框光标，分数线，难度选择，加载中动画，专栏查询框，输入框
+    *:not(button,.CodeMirror-cursor,.frac-line,.combo-wrapper > .text,.cm-cursor,div[data-v-bbdab89a][style*="border-width: 4px;"],.refined-input,input,h1,hr,blockquote)
         border-color line_color !important
+    // 设置全局背景
     body
         overflow-x hidden
         background body_bg_color
-    
+    // 全局平滑滚动属性
     html, body
         scroll-behavior smooth
+    // 滚动条样式
     ::-webkit-scrollbar
         background scrollbar_track_color
         width 7px
@@ -463,6 +477,7 @@ mdeditor-patch()
     code, .hljs
         font-family font-stack-codeblock, monospace !important
 
+    // MD渲染
     mdeditor-patch()
 
     // 背景修改
@@ -472,7 +487,7 @@ mdeditor-patch()
         background-size cover
         background-position center
         background-attachment fixed
-    
+
     // 输入框样式修改
     input[type=text], input[type=password]
         color sec_text_color !important
@@ -485,10 +500,11 @@ mdeditor-patch()
             background none !important
         &::placeholder
             color sec_text_color
+    // 专栏查询框样式修改
     .refined-input
         background transparent !important
         border-color transparent !important
-
+    // 输入框样式修改
     textarea
         color post_text_color !important
         font-family font-stack
@@ -499,8 +515,10 @@ mdeditor-patch()
             border-color var(--l-simple-select--color,var(--lfe-color--primary,#3498db)) !important
             box-shadow none !important
             background none !important
-            animation .3s linear 0s textarea-checked
-    
+            if animations
+                animation .3s linear 0s textarea-checked
+
+    // 输入框默认文字信息
     *::placeholder, .lfe-placeholder
         color sec_text_color !important
 
@@ -513,12 +531,13 @@ mdeditor-patch()
             font-family font-stack
         svg
             color post_text_color !important
+    // 算法/来源/时间/状态 按钮样式
     button[data-v-04eb14e9]
         color sec_text_color !important
         background none !important
         border sec_text_color 1px solid !important
-     
-    
+
+
     // 选择框掉出来的下拉框
     .dropdown:not(div[data-v-1f03983a],div[data-v-9d62b45a])
         acrylic-bg()
@@ -529,25 +548,33 @@ mdeditor-patch()
             background button_hover_bg_color !important
     .user-stat-data > div > div > span
         color sec_text_color !important
+    // 删除广告
     if remove-ad
         div[data-v-0a593618],
-                div[data-v-5d92dbda]
-                        display none
-
+        div[data-v-5d92dbda]
+            display none
+    // exlg代码块
     .exlg-code-title
             acrylic-bg()
+    // exlg emoji
     .exlg-emo
             acrylic-bg()
     .exlg-emo-btn
             background board_color
             color text_color
+    // 解决exlg收起emoji时和亚克力冲突
     .exlg-emo:not(.exlg-show-emo)
             display none
+    // 代码块
     pre:not(.CodeMirror-line),
         code
             background codeblock_bg_color !important
             color hljs_base_color !important
             font-family font-stack-codeblock !important
+
+    .ace_editor
+        font 14pt/normal font-stack-codeblock !important
+    // 提交代码样式
     if dark-mode
             .ace_gutter {
                 background: #25282c !important;
@@ -649,39 +676,47 @@ mdeditor-patch()
             .ace_indent-guide {
                 background: url("https://cdn.jsdelivr.net/npm/ace-builds@1.36.2/css/tomorrow_night-1.png") right repeat-y!important
              }
-            .CodeMirror { background: #2e3440!important; color: #d8dee9!important;font-family font-stack-codeblock !important; }
-            div.CodeMirror-selected { background: #434c5e!important; }
-            .CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #3b4252!important; }
-            .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #3b4252!important; }
-            .CodeMirror-gutters { background: #2e3440!important; border-right: 0px!important; }
-            .CodeMirror-guttermarker { color: #4c566a!important; }
-            .CodeMirror-guttermarker-subtle { color: #4c566a!important; }
-            .CodeMirror-linenumber { color: #4c566a!important; }
-            .CodeMirror-cursor { border-left: 1px solid #f8f8f0!important; }
-            span.cm-comment { color: #4c566a!important; }
-            span.cm-atom { color: #b48ead!important; }
-            span.cm-number { color: #b48ead!important; }
-            span.cm-comment.cm-attribute { color: #97b757!important; }
-            span.cm-comment.cm-def { color: #bc9262!important; }
-            span.cm-comment.cm-tag { color: #bc6283!important; }
-            span.cm-comment.cm-type { color: #5998a6!important; }
-            span.cm-property, span.cm-attribute { color: #8FBCBB!important; }
-            span.cm-keyword { color: #81A1C1!important; }
-            span.cm-builtin { color: #81A1C1!important; }
-            span.cm-string { color: #A3BE8C!important; }
-            span.cm-variable { color: #d8dee9!important; }
-            span.cm-variable-2 { color: #d8dee9!important; }
-            span.cm-variable-3, span.cm-type { color: #d8dee9!important; }
-            span.cm-def { color: #8FBCBB!important; }
-            span.cm-bracket { color: #81A1C1!important; }
-            span.cm-tag { color: #bf616a!important; }
-            span.cm-header { color: #b48ead!important; }
-            span.cm-link { color: #b48ead!important; }
-            span.cm-error { background: #bf616a!important; color: #f8f8f0!important; }
-            .CodeMirror-activeline-background { background: #3b4252!important; }
-            .CodeMirror-matchingbracket {
-                text-decoration: underline!important;
-                color: white !important;
+            .CodeMirror { background: #2B2B2B !important; color: #A9B7C6!important; }
+            span.cm-header {color: #A9B7C6!important;}
+            span.cm-meta { color: #BBB529!important; }
+            span.cm-number { color: #6897BB!important; }
+            span.cm-keyword { color: #CC7832!important; line-height: 1em!important; font-weight: bold!important; }
+            span.cm-def { color: #A9B7C6!important; font-style: italic!important; }
+            span.cm-variable { color: #A9B7C6!important; }
+            span.cm-variable-2 { color: #A9B7C6!important; }
+            span.cm-variable-3 { color: #9876AA!important; }
+            span.cm-type { color: #AABBCC!important; font-weight: bold!important; }
+            span.cm-property { color: #FFC66D!important; }
+            span.cm-operator { color: #A9B7C6!important; }
+            span.cm-string { color: #6A8759!important; }
+            span.cm-string-2 { color: #6A8759!important; }
+            span.cm-comment { color: #61A151!important; font-style: italic!important; }
+            span.cm-link { color: #CC7832!important; }
+            span.cm-atom { color: #CC7832!important; }
+            span.cm-error { color: #BC3F3C!important; }
+            span.cm-tag { color: #629755!important; font-weight: bold!important; font-style: italic!important; text-decoration: underline!important; }
+            span.cm-attribute { color: #6897bb!important; }
+            span.cm-qualifier { color: #6A8759!important; }
+            span.cm-bracket { color: #A9B7C6!important; }
+            span.cm-builtin { color: #FF9E59!important; }
+            span.cm-special { color: #FF9E59!important; }
+            span.cm-matchhighlight { color: #FFFFFF!important; background-color: rgba(50, 89, 48, .7)!important; font-weight: normal!important;}
+            span.cm-searching { color: #FFFFFF!important; background-color: rgba(61, 115, 59, .7)!important; font-weight: normal!important;}
+            .CodeMirror-cursor { border-left: 1px solid #A9B7C6!important; }
+            .CodeMirror-activeline-background { background: #323232!important; }
+            .CodeMirror-gutters { background: #313335!important; border-right: 1px solid #313335!important; }
+            .CodeMirror-guttermarker { color: #FFEE80!important; }
+            .CodeMirror-guttermarker-subtle { color: #D0D0D0!important; }
+            .CodeMirrir-linenumber { color: #606366!important; }
+            .CodeMirror-matchingbracket { background-color: #3B514D!important; color: #FFEF28 !important; font-weight: bold!important; }
+            div.CodeMirror-selected { background: #214283!important; }
+            .CodeMirror-hints {
+                color: #9C9E9E!important;
+                background-color: #3B3E3F !important;
+            }
+            .CodeMirror-hints .CodeMirror-hint-active {
+                background-color: #494D4E !important;
+                color: #9C9E9E !important;
             }
     // 旋转动画
     div[data-v-bbdab89a]
@@ -690,9 +725,7 @@ mdeditor-patch()
     // 分数线
     .frac-line
         border-color text_color !important
-    // 灰名
-    span[data-v-0640126c][style*="color: rgb(191\, 191\, 191);"]
-        color #9b9b9b !important
+    // 即将离开洛谷样式
     div[style*="margin: 0 auto; width: 100vw; padding: 2em 0; box-sizing: border-box; max-width: 680px; height: 100%; min-height: 100vh; display: flex; flex-flow: column; justify-content: center;"] > .card
         acrylic-bg()
         border-radius 6px
@@ -703,17 +736,23 @@ mdeditor-patch()
         & > h3,
         & > p
             color text_color
+    // 解决AT超长题号导致换行的bug
     span[data-v-beeebc6e][title]
         color text_color !important
         white-space nowrap !important
+    // footer展示动画
     #app .main-container .wrapper[data-v-43a0de31]:last-child
-        animation footer-show .5s ease-out
+        if animations
+            animation footer-show .5s ease-out
+    // 解决洛谷讨论区footer没有沉底
     .footer
         padding-bottom 1.5em !important
+    // 复选框样式
     svg[data-icon="square"]
         color sec_text_color !important
     svg[data-icon="square"]:hover
         color link_hover_color !important
+    // 给有文字的颜色加上边框
     span[data-v-0640126c]:not(.lfe-caption,.text,.color-none.login > *,.hide-side.color-default span)
     span[data-v-263e39b8]:not(.color-none *)
     a[href^="/user/"]:not(.color-none,.color-default,[data-v-bade3303])
@@ -724,8 +763,10 @@ mdeditor-patch()
     a[href^="/remoteJudgeRedirect/"]
     .list .item .avatar+div span:nth-child(1)
     .item img[src^="https://cdn.luogu.com.cn/upload/usericon/"]+span span:nth-child(1)
-    .name
+    .name:not([data-v-3ae85f6d])
+    .row .status
         text-shadow 0 .5px line_color, .5px 0 line_color, -0.5px 0 line_color, 0 -0.5px line_color
+    // 给钩子加边框
     a[href="/discuss/show/142324"] > svg > path
         stroke line_color
     a[href="/discuss/142324"] > svg > g
@@ -734,71 +775,79 @@ mdeditor-patch()
     .item img[src^="https://cdn.luogu.com.cn/upload/usericon/"]+span span:nth-child(2) svg g
         stroke line_color
         stroke-width 20
-    //动画
+    // 页面展示动画
     main
     .inner-card
-        animation .7s ease 0s show
-    .card:not(.info-card.center,[data-v-f1a6b270],.modal-card):hover
+        if animations
+            animation .7s ease 0s show
+    // 鼠标悬浮动画
+    .card:not(.info-card.center,[data-v-f1a6b270],.modal-card,.modal *,[currenttemplate="ImageList"] .full-container:last-child *):hover
     .inner-card:hover
-    ul[data-v-01f8a102]:hover
+    ul[data-v-01f8a102] li:hover
     .l-card:not(.container.type-burger):hover
     .lg-index-contest:hover
     .lg-article:hover
     .am-comment:hover
     .row.reply-info:hover
-        transform translateY(-0.3em) !important
-    .card:not(.info-card.center,[data-v-f1a6b270],.modal-card)
+        if animations
+            transform translateY(-0.3em) !important
+    .card:not(.info-card.center,[data-v-f1a6b270],.modal-card,.modal *,[currenttemplate="ImageList"] .full-container:last-child *)
     .inner-card
-    ul[data-v-01f8a102]
+    ul[data-v-01f8a102] li
     .l-card:not(.container.type-burger)
     .lg-index-contest
     .lg-article
     .am-comment
     .row.reply-info
-        transition transform .5s
+        if animations
+            transition transform .5s
+    // 解决更多功能按钮背景颜色切换过快
     #app > nav.lfe-body .popup a
     .dropdown .center .ops a
-        transition background .3s
+        if animations
+            transition background .3s
     .dropdown .center .ops a
         border-radius 6px
-    a
-        transition color .3s
-    a
-        position relative
-    a:not(nav *,[href^="/discuss/new"]):hover
-        overflow visible
-    a:not(nav *,[href^="/discuss/new"]):hover::after
-        content ""
-        position absolute
-        left 0
-        right 0
-        top 99%
-        min-height .28em
-        background sec_text_color
-        z-index 6
-        animation link_hover .5s
-    .avatar:hover
-    .am-comment-avatar:hover
+    // 文字颜色变化
+    if animations
+        a
+            if animations
+                transition color .3s
+    // 头像悬浮动画
     img[src^="https://cdn.luogu.com.cn/upload/usericon/"]:hover
-        animation avatar-hover .5s linear
+        if animations
+            animation avatar-hover .5s linear
+    // 给悬浮在名字上面是出现的卡片加上圆角
     .dropdown.shown div .user-header-top
         border-radius 6px 6px 0 0
     .dropdown.shown div .user-info
         border-radius 0 0 6px 6px
+    // 字体问题
     .dropdown.shown div .user-info *
         font-family font-stack !important
+    // 洛谷日爆样式
+    .page .page-bottom
+        margin-top 1em
+        padding-bottom 2em
+        border-radius 6px
+        acrylic-bg()
+    h1
+        border-color text_color
      // 主站
-@-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article/|problem/solution/|ranking)).*")
+@-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article|problem/solution/|ranking|discuss)).*")
+    // 侧栏出现动画
     @keyframes left-show
         0%
             transform translateX(-120%)
         100%
             transform translateX(0)
+    // 顶栏出现动画
     @keyframes top-show
         0%
             transform translateY(-120%)
         100%
             transform translateY(0)
+    // footer出现动画
     @keyframes footer-show
         0%
             transform translateY(120%)
@@ -811,14 +860,20 @@ mdeditor-patch()
     .background:not([data-v-14c11e75]):not([data-v-6b8e1cb0])
         background none !important
         filter none !important
-
+    // sweetalert2样式
     swal-patch()
-
+    // 侧栏动画
     nav[data-v-12f19ddc]
-        animation left-show .5s ease-out
+        if animations
+            animation left-show .5s ease-out
+    // 顶栏动画
     .header-layout.tiny
     .user-nav
-        animation top-show .5s ease-out
+        if animations
+            animation top-show .5s ease-out
+    // 顶栏样式
+    body > .header
+        acrylic-bg() if header-acrylic
     .header-layout
         acrylic() if header-acrylic
         // background navbar_bg_color unless header-acrylic
@@ -833,7 +888,7 @@ mdeditor-patch()
             .stat > .color-inverse > .field[data-v-3c4577b8]
                 // 无亚克力时 sec_text_color 太深看不清
                 border-left-color subtitle_color !important if header-acrylic
-                
+
                 color #fff !important if header-acrylic
                 border-left-color #fff !important if header-acrylic
 
@@ -843,7 +898,7 @@ mdeditor-patch()
         padding-bottom .7em // 防止时限栏距离边缘太近
         a:hover
                 color post_link_color
-    
+
     // 讨论区/题解 的 header-layout
     .header-layout.narrow[data-v-7ddab1d5]
         height auto !important
@@ -892,13 +947,13 @@ mdeditor-patch()
         .am-panel // 块里的块
             acrylic-bg(0.5,0)
             border none
-        
+
         .highcharts-root
             tspan
                 // 我也不知道为什么这个颜色不会变
                 // 随它去吧，反正我改了
                 color sec_text_color !important
-        
+
         .feed-selector > a // 「我关注的」「我发布的」
             border-radius 6px
             &:hover
@@ -922,7 +977,7 @@ mdeditor-patch()
                     acrylic-bg(0.6,10px,true)
                 else
                     background board_color !important
-            
+
             .feed-comment
                 markdown-patch() // 为什么犇犇里面能渲染代码块
 
@@ -934,7 +989,7 @@ mdeditor-patch()
             acrylic-bg(0.6,20px)
         else
             background board_color !important
-        
+
         color post_text_color !important
         position relative
         &:hover
@@ -942,7 +997,7 @@ mdeditor-patch()
                 acrylic(0.6,20px)
             else
                 background board_color !important
-                
+
     .card:not(body > div > .card)
         border-radius 6px
         // 卡片背景材质
@@ -950,10 +1005,10 @@ mdeditor-patch()
             acrylic(0.6,20px)
         else
             background board_color !important
-        
+
         color post_text_color !important
         position relative
-        
+
         markdown-patch()
 
         // 「提交记录」「查看题解」等超链接按钮
@@ -969,13 +1024,13 @@ mdeditor-patch()
         // 「查看算法标签」「查看讨论」等展开按钮
         .expand-tip > span[data-v-e4b7c2ca]
             color sec_text_color !important
-        
+
         // 「展开全文」
         .collapsed-wrapper > .expand > .expand
             background none
             border-radius 8px
             padding-top 5em // 拉长一点
-        
+
         // // 把「展开全文」挪到一个更加阳间的地方
         // .collapsed + .expand[data-v-15e4f65b]
         //     bottom -2.75em !important
@@ -983,7 +1038,7 @@ mdeditor-patch()
         //「创建时间」等说明性小字（data-v-f9624136 是个人简介）
         .lfe-caption:not([data-v-f9624136])
             color sec_text_color
-        
+
         //「统计数据不实时更新」等小字
         .caption[data-v-1c7f56df]
             color sec_text_color
@@ -1003,7 +1058,7 @@ mdeditor-patch()
     // 提交代码
     .light-black[data-v-64ec303c]
         color sec_text_color !important
-    
+
     // 评测结果
     // 这一段从旧版贺来的，好看！
     // 我并不是很想改动这一坨
@@ -1085,41 +1140,13 @@ mdeditor-patch()
             opacity 0.8
             color #c4c6c9
 
-    // 讨论区
-    .row-space-between[data-v-70c65cc7]
-        color subtitle_color // sec_text_color 太浅看不清
-    
-    if remove-reply-container
-        .edit-reply-container
-            display none !important
 
     // 「全部版块」页面
     .forum-name[data-v-d6def288]
         color sec_text_color !important
-    
+
     .time[data-v-b0d342de]
         color sec_text_color !important
-
-    .btn-edit-reply // 「编辑回复」（这按钮的位置很唐）
-        acrylic()
-        color post_text_color
-
-    .author
-        background none !important
-
-        // 匹配各种时间小字（讨论区回帖，陶片放逐）
-        & > .left > .time, & > .time > time
-            color sec_text_color
-    
-    // 讨论区楼主
-    .grey[data-v-70c65cc7]
-        color sec_text_color
-
-    // 团队讨论区
-    .discuss[data-v-b878863e]
-        acrylic-bg()
-        border none !important
-
 
     // 私信
     .frame[data-v-66fcc50b] // 唐氏搜索框
@@ -1129,7 +1156,7 @@ mdeditor-patch()
     // 私信列表
     .item[data-v-4d6dca7a]:hover
         background button_hover_bg_color !important
-    
+
     .side > .panel-content[data-v-7821ddd5]
         max-width 60em
 
@@ -1150,7 +1177,7 @@ mdeditor-patch()
             color sec_text_color
 
     // 题解
-    .solution-article > .operations.float[data-v-530f8b1f]
+    .solution-article > .operations.float
         acrylic-bg()
 
     // 题目列表
@@ -1160,11 +1187,11 @@ mdeditor-patch()
         span[data-v-beeebc6e][title]
             color text_color !important
             white-space nowrap !important
-        
+
         // 搜索框的放大镜图标
         .frame[data-v-66fcc50b]
             border none !important
-        
+
         .search-icon[data-v-04eb14e9]
             color sec_text_color !important
             position relative
@@ -1189,7 +1216,7 @@ mdeditor-patch()
     // 题目列表翻页条容器
     .bottom.float-bottom
         acrylic-bg()
-    
+
     // 翻页条
     .page-bar
         background transparent !important
@@ -1204,14 +1231,14 @@ mdeditor-patch()
             color sec_text_color !important
         img
             filter invert(1) !important
-    
+
     // 通知中心
     .title[data-v-71e80b39]
         color post_heading_color
-    
+
     .time[data-v-71e80b39]
         color sec_text_color
-    
+
     .content[data-v-71e80b39]
         color post_text_color
 
@@ -1222,7 +1249,7 @@ mdeditor-patch()
         box-sizing border-box
         padding 3px
         color post_link_color // 假装这是个链接...
-    
+
     // ⚡系统维护，该内容暂不可见⚡
     div[data-v-fe28b16c][data-v-f9624136][style*="border: 1px solid rgb(225"] // 妈的这 Styl 编译器什么垃圾
         display none !important
@@ -1236,7 +1263,8 @@ mdeditor-patch()
         border-radius 6px
         [data-v-c0f00ef2] > .lfe-caption[data-v-71731098]
             background none !important
-        animation 1s ease-in-out 0s inner-show
+        if animations
+            animation 1s ease-in-out 0s inner-show
     .member:hover
         z-index 999
         transition-delay .12s
@@ -1254,7 +1282,7 @@ mdeditor-patch()
         position absolute
         margin -400px 0 0 -75px // 这个窗会莫名其妙飞走，为什么？我也不知道，反正这样能修好
 
-    // 一些小字    
+    // 一些小字
     .info-content[data-v-8b7f80ba], .caption[data-v-325cf452]
         color sec_text_color
 
@@ -1300,14 +1328,14 @@ mdeditor-patch()
 
             &:first-of-type // Logo
                 margin-top 10px !important
-            
+
             .icon
                 line-height 2.4em
                 font-size 18px
                 width 100%
                 margin 0 !important
                 transition all 0.3s ease
-            
+
             .text
                 opacity 0
                 margin-top -1em
@@ -1317,11 +1345,11 @@ mdeditor-patch()
             &:hover > .icon
                 line-height 1.5em
                 font-size 17px
-            
+
             &:hover > .text
                 opacity 1
                 margin-top 0.2em
-        
+
         & > div:first-child
             background none !important if dark-mode
             background navbar_text_color !important unless dark-mode
@@ -1350,19 +1378,9 @@ mdeditor-patch()
     .lfe-h1[data-v-2dfcfd35]
         white-space wrap
     .lfe-h1[data-v-2dfcfd35]
-        animation 1s ease-in-out 0s title-show
-        
-    // 讨论区bug
-    .row.reply-info[data-v-6febb0e8]
-            padding 5pt 5pt 5pt 5pt
-            acrylic-bg(0.6,10px)
-            border-radius 6px
-            & > *
-                padding 0pt 5pt 0pt 5pt
-                color text_color
-            & > .row,
-            & > .row > *
-                border-color text_color !important
+        if animations
+            animation 1s ease-in-out 0s title-show
+
     // 主页bug
     .highcharts-axis-labels > *
         color sec_text_color !important
@@ -1376,6 +1394,7 @@ mdeditor-patch()
     .lg-index-content > .am-g:nth-child(2)
         z-index 4
         position relative
+    // exlg弹窗
     .exlg-window
         background board_color !important
         color text_color
@@ -1387,7 +1406,8 @@ mdeditor-patch()
     .user-header-container
         z-index 5
 //讨论区
-@-moz-document regexp("^(https?://www.luogu.com(.cn)?/discuss).*")
+@-moz-document regexp("^(https?://www.luogu.com(.cn)?/(discuss|article)).*")
+    // 回复样式（解决回复盖住了主页卡片）
     .card:not(.reply-editor):hover
         z-index 6
         transition-property z-index,transform !important
@@ -1396,14 +1416,69 @@ mdeditor-patch()
         z-index 5
         transition-property z-index,transform !important
         transition-delay .3s,0s !important
+    // 编辑区样式
     .edit-reply-container
         z-index 7 !important
+    // 解决页码条显示不清楚
     .page-bar
         acrylic-bg()
         padding 5pt 5pt 5pt 5pt
         border-radius 6px
+        color text_color
+    .name[data-v-88d5ecf4]
+        color text_color !important
+    a[title="全部板块"] > svg
+        color sec_text_color !important
+    a.row.content-left.title.link
+        color text_color
+    .action > *
+        color text_color !important
+    time
+        color sec_text_color !important
+    // 讨论区bug
+    .row.reply-info
+            padding 5pt 5pt 5pt 5pt
+            margin-top 1.5em
+            acrylic-bg(0.6,10px)
+            border-radius 6px
+            & > *
+                padding 0pt 5pt 0pt 5pt
+                color text_color
+            & > .row,
+            & > .row > *
+                border-color text_color !important
+        .btn-edit-reply // 「编辑回复」（这按钮的位置很唐）
+        acrylic()
+        color post_text_color
+
+    .author
+        background none !important
+
+        // 匹配各种时间小字（讨论区回帖，陶片放逐）
+        & > .left > .time, & > .time > time
+            color sec_text_color
+
+    // 讨论区楼主
+    .grey[data-v-70c65cc7]
+        color sec_text_color
+
+    // 团队讨论区
+    .discuss[data-v-b878863e]
+        acrylic-bg()
+        border none !important
+    .lfe-caption > span
+        color text_color
+    // 讨论区
+    .row-space-between[data-v-70c65cc7]
+        color subtitle_color // sec_text_color 太浅看不清
+    .lfe-h3.name
+        color text_color
+    if remove-reply-container
+        .edit-reply-container:not(.in-position)
+            display none !important
 // 洛谷专栏
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/article/[A-Za-z0-9]{8}$")
+    // 文章区阅读进度条
     @keyframes bar
         0%
             transform-origin 0 50%
@@ -1411,7 +1486,9 @@ mdeditor-patch()
         100%
             transform-origin 0 50%
             transform scaleX(1)
+    // sweetalert2样式
     swal-patch()
+    // 侧栏样式
     .lside
         background navbar_bg_color !important unless nav-acrylic
         acrylic-bg() if nav-acrylic
@@ -1425,10 +1502,10 @@ mdeditor-patch()
                     filter none !important
         .title
             color navbar_text_color !important
-
+    // 顶栏样式
     .top-bar
         acrylic-bg() if header-acrylic
-        background navbar_bg_color !important unless header-acrylic 
+        background navbar_bg_color !important unless header-acrylic
         color subtitle_color !important
         .user-nav > a
             color post_text_color
@@ -1442,12 +1519,12 @@ mdeditor-patch()
             acrylic()
         else
             background board_color !important
-        
+
         // 这个栏本来和 .top-bar 是堆在一块的
         // 所以不加这个 position 会导致毛玻璃重叠
         position relative !important
         top 1em
-        
+
         // 将标题栏变成卡片式布局
         border-radius 6px
         box-sizing border-box
@@ -1464,7 +1541,7 @@ mdeditor-patch()
             padding-left 1em // 作者栏和正文对齐，更整齐
             padding-right 1em
 
-        div[data-v-5b390a88]:nth-child(2) // 正文
+        div[data-v-fc349d1c]:nth-child(2) // 正文
             background none !important
 
             .article-content
@@ -1479,19 +1556,19 @@ mdeditor-patch()
                     color sec_text_color !important
                     &:hover
                         color button_hover_bg_color !important
-                
+
                 // 右侧目录
                 .toc-wrapper
                     right -200px !important
 
-                    .toc[data-v-463b40c0]
+                    .toc[data-v-9c6e88ba]
                         border-radius 6px
                         padding 1em
                         if card-acrylic
                                         acrylic()
                                 else
                                         background board_color
-                    
+
                     .toc>ul>li[data-v-318b4974]:hover::before,
                     .article-content .toc>ul>li.active[data-v-318b4974]::before
                         background-color button_hover_bg_color !important
@@ -1524,7 +1601,7 @@ mdeditor-patch()
     .l-card:not(.float-card)
         acrylic-bg()
         color post_text_color
-    
+
     .label, .lfe-caption
         color sec_text_color !important
     footer
@@ -1534,43 +1611,52 @@ mdeditor-patch()
         position relative
         top 5em
         color sec_text_color !important
-        animation footer-show .5s ease-out
+        if animations
+            animation footer-show .5s ease-out
     .toc:hover
-        transform translateY(-0.3em) !important
+        if animations
+            transform translateY(-0.3em) !important
     .toc
-        transition transform .5s
-    .top-bar::before
-        content ""
-        position absolute
-        top 0
-        left 0
-        right 0
-        height 5px
-        background sec_text_color
-        opacity 0.5
-    .top-bar::after
-        content ""
-        position absolute
-        top 0
-        left 0
-        right 0
-        height 5px
-        background text_color
-        animation bar 5s linear
-        animation-timeline scroll()
+        if animations
+            transition transform .5s
+
+    if prose-bar
+        .top-bar::before
+            content ""
+            position absolute
+            top 0
+            left 0
+            right 0
+            height 5px
+            background sec_text_color
+            opacity 0.5
+        .top-bar::after
+            content ""
+            position absolute
+            top 0
+            left 0
+            right 0
+            height 5px
+            background text_color
+            animation bar 5s linear
+            animation-timeline scroll()
 // 洛谷新UI
-@-moz-document regexp("^https?://www.luogu.com(.cn)?/(article|problem/solution|ranking).*$")
+@-moz-document regexp("^https?://www.luogu.com(.cn)?/(article|problem/solution|ranking|).*$")
+    // 侧栏展示动画
     @keyframes left-navbar-show
         0%
             transform translateX(-100%)
         100%
             transform translateX(0)
+    // 顶栏展示动画
     @keyframes top-navbar-show
         0%
             transform translateY(-100%)
         100%
             transform translateY(0)
+    // sweetalert2样式
     swal-patch()
+    // 侧栏样式和个人卡片样式
     .lside,
     .rside
         background navbar_bg_color !important unless nav-acrylic
@@ -1585,25 +1671,29 @@ mdeditor-patch()
                     filter none !important
         .title
             color navbar_text_color !important
+    // 侧栏展示动画
     .lside
-        animation left-navbar-show .5s ease-out
+        if animations
+            animation left-navbar-show .5s ease-out
+    // 顶栏展示动画
     .top-bar
-        animation top-navbar-show .5s ease-out
+        if animations
+            animation top-navbar-show .5s ease-out
         acrylic-bg() if header-acrylic
-        background navbar_bg_color !important unless header-acrylic 
+        background navbar_bg_color !important unless header-acrylic
         color subtitle_color !important
         .user-nav > a
             color post_text_color
             &:hover
                 color post_link_color
-    
+
     .theme-bg
         background none !important
 
     .theme-fg
         acrylic-bg() if header-acrylic
         background navbar_bg_color !important unless header-acrylic
-    
+
     main
         background none !important
         .l-card
@@ -1612,11 +1702,12 @@ mdeditor-patch()
                 acrylic-bg(0.6,20px)
             else
                 background board_color !important
-            
+
             color post_text_color
     .comment-filter-line // 评论计数
         color sec_text_color !important
         font-family font-stack
+    // 展开全文按钮样式
     a[data-v-29ea9268-s]
             z-index 100
             position absolute
@@ -1649,9 +1740,15 @@ mdeditor-patch()
             display: flex;
             align-items: center;
             justify-content: center;
+    // 解决查看文章看不清
     a[data-v-9f81deee]
             color text_color !important
-    div[data-v-83fd4045] .list-wrap .row-wrap .row[data-v-83fd4045]:not(.article-comment div[data-v-83fd4045] .list-wrap .row-wrap .row[data-v-83fd4045])
+    .expand[data-v-ea62153a]
+            background none
+            height 2em
+            padding 0pt 0pt 0pt 0pt !important
+    // 把每一篇题解卡片化
+    .body > div[data-v-83fd4045] .list-wrap .row-wrap .row[data-v-83fd4045]:not(.article-comment div[data-v-83fd4045] .list-wrap .row-wrap .row[data-v-83fd4045])
             if anymore-acrylic
                     acrylic-bg(0.6,2px)
             else
@@ -1661,46 +1758,46 @@ mdeditor-patch()
             border-radius 5pt
             markdown-patch()
             font-family font-stack
-     .expand[data-v-9f81deee]
-            background none
-            height 2em
-            padding 0pt 0pt 0pt 0pt !important
-     .lside
-            overflow none
-     .float[data-v-9f81deee]
+    .float
             color text_color
             if anymore-acrylic
                     acrylic-bg(0.6,2px)
             else
                     background board_color !important
-     .lfe-h2:not(.lcolor--red-3)
+    // 题解旁边的卡片样式
+    .lfe-h2:not(.lcolor--red-3)
             color text_color
-     div[data-v-83fd4045-s] > div > *
+     // 正文样式
+    div[data-v-83fd4045-s] > div > *
             color text_color !important
-     .row.info > span[data-v-c83b85a7]
+    .row.info > span[data-v-c83b85a7]
             background board_color
-     .l-card
+    // 卡片样式
+    .l-card
             if card-acrylic
                 acrylic-bg()
             else
                 background board_color !important
-            
+
             & > div > h3,
             & > div > div > h4
                 color text_color !important
                 font-family font-stack
             & > div > div > svg
                 color text_color
-     .group-title
+    // 更多功能样式
+    .group-title
             color text_color
-     a.action[data-v-4596a371] > *
+    // 锁定按钮样式
+    a.action[data-v-4596a371] > *
             color text_color
+    // 专栏查询按钮样式
     .refined-input[data-v-33028704]
         background transparent !important
         border-color transparent !important
         & > .east > svg
             padding-left 5pt
-@-moz-document regexp("^https?://www.luogu.com(.cn)?/ranking.*$")
+@-moz-document regexp("^https?://www.luogu.com(.cn)?/ranking\?.*$")
     // 咕值列表大大大大大大大大大大大改动（约等于重构
     .list-wrap.table
         display grid !important
@@ -1734,6 +1831,45 @@ mdeditor-patch()
     .row[data-v-83fd4045] > div[data-v-cc5276c4]
         padding-left 8pt
         padding-bottom .5em
+@-moz-document regexp("^https?://www.luogu.com(.cn)?/ranking/elo.*$")
+    .list-wrap.table
+        display grid !important
+    .header-wrap
+        display grid !important
+    .header-wrap > .header
+        display grid !important
+        grid-template-columns auto auto 3% 53% 4% 6%
+        grid-column-gap 2.5%
+    .header-wrap > .header > *:not(:last-child)
+        align-self center
+        justify-self center
+        padding .5em 0pt .5em 0pt !important
+        white-space nowrap !important
+    .header-wrap > .header > *:last-child
+        align-self center
+        padding .5em 0pt .5em 3pt !important
+        white-space nowrap !important
+    .header-wrap > .header > .small > span > svg[data-icon="sort"]
+        color sec_text_color !important
+    .row-wrap
+        display grid !important
+    .row[data-v-83fd4045]
+        display grid !important
+        grid-template-columns 4% 21% 4% auto 4% 4%
+        grid-column-gap 0.5%
+    .row > *:not(.uname-row):not(:nth-child(4))
+        place-self center
+        padding 0pt 0pt 0pt 0pt
+    .row > *:nth-child(4)
+        padding 0pt 0pt 0pt 0pt
+        align-self center
+        white-space nowrap !important
+    .row[data-v-83fd4045] > div[data-v-cc5276c4]
+        padding-left 8pt
+        padding-bottom .5em
+    .id
+        white-space nowrap
+// 纯享壁纸版锁定账户
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/auth/unlock$")
     if lock-account
         .main-container > .wrapper
@@ -1745,7 +1881,9 @@ mdeditor-patch()
             transition opacity 0.5s ease-in-out
         .container:hover
             opacity 1 !important
+// 提交记录样式
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/record/.*$")
+    // 给看不清的文字加边框
     .info-rows div:nth-child(n+2):not(:last-child) span:nth-child(2)
     .name
         text-shadow 0 .5px line_color, .5px 0 line_color, -0.5px 0 line_color, 0 -0.5px line_color

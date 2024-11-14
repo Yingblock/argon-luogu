@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20241012.07.52
+@version              20241114.21.26
 @namespace            https://userstyles.world/style/12397/re-2024
 @description          洛谷美化样式。
 @author               d0j1a1701
@@ -448,7 +448,7 @@ mdeditor-patch()
         word-break break-all
     // 全局设置边框
     // 除了按钮，输入框光标，分数线，难度选择，加载中动画，专栏查询框，输入框
-    *:not(button,.CodeMirror-cursor,.frac-line,.combo-wrapper > .text,.cm-cursor,div[data-v-bbdab89a][style*="border-width: 4px;"],.refined-input,input)
+    *:not(button,.CodeMirror-cursor,.frac-line,.combo-wrapper > .text,.cm-cursor,div[data-v-bbdab89a][style*="border-width: 4px;"],.refined-input,input,h1,hr,blockquote)
         border-color line_color !important
     // 设置全局背景
     body
@@ -832,8 +832,10 @@ mdeditor-patch()
         padding-bottom 2em
         border-radius 6px
         acrylic-bg()
+    h1
+        border-color text_color
      // 主站
-@-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article/|problem/solution/|ranking)).*")
+@-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article|problem/solution/|ranking|discuss)).*")
     // 侧栏出现动画
     @keyframes left-show
         0%
@@ -1139,13 +1141,6 @@ mdeditor-patch()
             opacity 0.8
             color #c4c6c9
 
-    // 讨论区
-    .row-space-between[data-v-70c65cc7]
-        color subtitle_color // sec_text_color 太浅看不清
-
-    if remove-reply-container
-        .edit-reply-container:not(.in-position)
-            display none !important
 
     // 「全部版块」页面
     .forum-name[data-v-d6def288]
@@ -1153,27 +1148,6 @@ mdeditor-patch()
 
     .time[data-v-b0d342de]
         color sec_text_color !important
-
-    .btn-edit-reply // 「编辑回复」（这按钮的位置很唐）
-        acrylic()
-        color post_text_color
-
-    .author
-        background none !important
-
-        // 匹配各种时间小字（讨论区回帖，陶片放逐）
-        & > .left > .time, & > .time > time
-            color sec_text_color
-
-    // 讨论区楼主
-    .grey[data-v-70c65cc7]
-        color sec_text_color
-
-    // 团队讨论区
-    .discuss[data-v-b878863e]
-        acrylic-bg()
-        border none !important
-
 
     // 私信
     .frame[data-v-66fcc50b] // 唐氏搜索框
@@ -1204,7 +1178,7 @@ mdeditor-patch()
             color sec_text_color
 
     // 题解
-    .solution-article > .operations.float[data-v-530f8b1f]
+    .solution-article > .operations.float
         acrylic-bg()
 
     // 题目列表
@@ -1408,17 +1382,6 @@ mdeditor-patch()
         if animations
             animation 1s ease-in-out 0s title-show
 
-    // 讨论区bug
-    .row.reply-info[data-v-6febb0e8]
-            padding 5pt 5pt 5pt 5pt
-            acrylic-bg(0.6,10px)
-            border-radius 6px
-            & > *
-                padding 0pt 5pt 0pt 5pt
-                color text_color
-            & > .row,
-            & > .row > *
-                border-color text_color !important
     // 主页bug
     .highcharts-axis-labels > *
         color sec_text_color !important
@@ -1444,7 +1407,7 @@ mdeditor-patch()
     .user-header-container
         z-index 5
 //讨论区
-@-moz-document regexp("^(https?://www.luogu.com(.cn)?/discuss).*")
+@-moz-document regexp("^(https?://www.luogu.com(.cn)?/(discuss|article)).*")
     // 回复样式（解决回复盖住了主页卡片）
     .card:not(.reply-editor):hover
         z-index 6
@@ -1462,7 +1425,58 @@ mdeditor-patch()
         acrylic-bg()
         padding 5pt 5pt 5pt 5pt
         border-radius 6px
+        color text_color
+    .name[data-v-88d5ecf4]
+        color text_color !important
+    a[title="全部板块"] > svg
+        color sec_text_color !important
+    a.row.content-left.title.link
+        color text_color
+    .action > *
+        color text_color !important
+    time
+        color sec_text_color !important
+    // 讨论区bug
+    .row.reply-info
+            padding 5pt 5pt 5pt 5pt
+            margin-top 1.5em
+            acrylic-bg(0.6,10px)
+            border-radius 6px
+            & > *
+                padding 0pt 5pt 0pt 5pt
+                color text_color
+            & > .row,
+            & > .row > *
+                border-color text_color !important
+        .btn-edit-reply // 「编辑回复」（这按钮的位置很唐）
+        acrylic()
+        color post_text_color
 
+    .author
+        background none !important
+
+        // 匹配各种时间小字（讨论区回帖，陶片放逐）
+        & > .left > .time, & > .time > time
+            color sec_text_color
+
+    // 讨论区楼主
+    .grey[data-v-70c65cc7]
+        color sec_text_color
+
+    // 团队讨论区
+    .discuss[data-v-b878863e]
+        acrylic-bg()
+        border none !important
+    .lfe-caption > span
+        color text_color
+    // 讨论区
+    .row-space-between[data-v-70c65cc7]
+        color subtitle_color // sec_text_color 太浅看不清
+    .lfe-h3.name
+        color text_color
+    if remove-reply-container
+        .edit-reply-container:not(.in-position)
+            display none !important
 // 洛谷专栏
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/article/[A-Za-z0-9]{8}$")
     // 文章区阅读进度条
@@ -1528,7 +1542,7 @@ mdeditor-patch()
             padding-left 1em // 作者栏和正文对齐，更整齐
             padding-right 1em
 
-        div[data-v-5b390a88]:nth-child(2) // 正文
+        div[data-v-fc349d1c]:nth-child(2) // 正文
             background none !important
 
             .article-content
@@ -1548,7 +1562,7 @@ mdeditor-patch()
                 .toc-wrapper
                     right -200px !important
 
-                    .toc[data-v-463b40c0]
+                    .toc[data-v-9c6e88ba]
                         border-radius 6px
                         padding 1em
                         if card-acrylic
@@ -1628,7 +1642,7 @@ mdeditor-patch()
             animation bar 5s linear
             animation-timeline scroll()
 // 洛谷新UI
-@-moz-document regexp("^https?://www.luogu.com(.cn)?/(article|problem/solution|ranking).*$")
+@-moz-document regexp("^https?://www.luogu.com(.cn)?/(article|problem/solution|ranking|).*$")
     // 侧栏展示动画
     @keyframes left-navbar-show
         0%
@@ -1730,12 +1744,12 @@ mdeditor-patch()
     // 解决查看文章看不清
     a[data-v-9f81deee]
             color text_color !important
-     .expand[data-v-9f81deee]
+    .expand[data-v-ea62153a]
             background none
             height 2em
             padding 0pt 0pt 0pt 0pt !important
     // 把每一篇题解卡片化
-    div[data-v-83fd4045] .list-wrap .row-wrap .row[data-v-83fd4045]:not(.article-comment div[data-v-83fd4045] .list-wrap .row-wrap .row[data-v-83fd4045])
+    .body > div[data-v-83fd4045] .list-wrap .row-wrap .row[data-v-83fd4045]:not(.article-comment div[data-v-83fd4045] .list-wrap .row-wrap .row[data-v-83fd4045])
             if anymore-acrylic
                     acrylic-bg(0.6,2px)
             else
@@ -1745,7 +1759,7 @@ mdeditor-patch()
             border-radius 5pt
             markdown-patch()
             font-family font-stack
-    .float[data-v-9f81deee]
+    .float
             color text_color
             if anymore-acrylic
                     acrylic-bg(0.6,2px)
@@ -1784,7 +1798,7 @@ mdeditor-patch()
         border-color transparent !important
         & > .east > svg
             padding-left 5pt
-@-moz-document regexp("^https?://www.luogu.com(.cn)?/ranking.*$")
+@-moz-document regexp("^https?://www.luogu.com(.cn)?/ranking\?.*$")
     // 咕值列表大大大大大大大大大大大改动（约等于重构
     .list-wrap.table
         display grid !important
@@ -1818,6 +1832,44 @@ mdeditor-patch()
     .row[data-v-83fd4045] > div[data-v-cc5276c4]
         padding-left 8pt
         padding-bottom .5em
+@-moz-document regexp("^https?://www.luogu.com(.cn)?/ranking/elo.*$")
+    .list-wrap.table
+        display grid !important
+    .header-wrap
+        display grid !important
+    .header-wrap > .header
+        display grid !important
+        grid-template-columns auto auto 3% 53% 4% 6%
+        grid-column-gap 2.5%
+    .header-wrap > .header > *:not(:last-child)
+        align-self center
+        justify-self center
+        padding .5em 0pt .5em 0pt !important
+        white-space nowrap !important
+    .header-wrap > .header > *:last-child
+        align-self center
+        padding .5em 0pt .5em 3pt !important
+        white-space nowrap !important
+    .header-wrap > .header > .small > span > svg[data-icon="sort"]
+        color sec_text_color !important
+    .row-wrap
+        display grid !important
+    .row[data-v-83fd4045]
+        display grid !important
+        grid-template-columns 4% 21% 4% auto 4% 4%
+        grid-column-gap 0.5%
+    .row > *:not(.uname-row):not(:nth-child(4))
+        place-self center
+        padding 0pt 0pt 0pt 0pt
+    .row > *:nth-child(4)
+        padding 0pt 0pt 0pt 0pt
+        align-self center
+        white-space nowrap !important
+    .row[data-v-83fd4045] > div[data-v-cc5276c4]
+        padding-left 8pt
+        padding-bottom .5em
+    .id
+        white-space nowrap
 // 纯享壁纸版锁定账户
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/auth/unlock$")
     if lock-account

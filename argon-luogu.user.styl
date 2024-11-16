@@ -1,6 +1,6 @@
 /* ==UserStyle==
-@name                 氩洛谷 Re 2024
-@version              20241114.21.26
+@name                 Argon Luogu Dev
+@version              20241116.22.23
 @namespace            https://userstyles.world/style/12397/re-2024
 @description          洛谷美化样式。
 @author               d0j1a1701
@@ -550,8 +550,7 @@ mdeditor-patch()
         color sec_text_color !important
     // 删除广告
     if remove-ad
-        div[data-v-0a593618],
-        div[data-v-5d92dbda]
+        .side > *:last-child:not(.l-card,.card)
             display none
     // exlg代码块
     .exlg-code-title
@@ -780,27 +779,8 @@ mdeditor-patch()
     .inner-card
         if animations
             animation .7s ease 0s show
-    // 鼠标悬浮动画
-    .card:not(.info-card.center,[data-v-f1a6b270],.modal-card,.modal *,[currenttemplate="ImageList"] .full-container:last-child *):hover
-    .inner-card:hover
-    ul[data-v-01f8a102] li:hover
-    .l-card:not(.container.type-burger):hover
-    .lg-index-contest:hover
-    .lg-article:hover
-    .am-comment:hover
-    .row.reply-info:hover
-        if animations
-            transform translateY(-0.3em) !important
-    .card:not(.info-card.center,[data-v-f1a6b270],.modal-card,.modal *,[currenttemplate="ImageList"] .full-container:last-child *)
-    .inner-card
-    ul[data-v-01f8a102] li
-    .l-card:not(.container.type-burger)
-    .lg-index-contest
-    .lg-article
-    .am-comment
-    .row.reply-info
-        if animations
-            transition transform .5s
+    .info-card
+        overflow-y visible !important
     // 解决更多功能按钮背景颜色切换过快
     #app > nav.lfe-body .popup a
     .dropdown .center .ops a
@@ -831,8 +811,21 @@ mdeditor-patch()
         padding-bottom 2em
         border-radius 6px
         acrylic-bg()
-    h1
-        border-color text_color
+    // 翻页条
+    .page-bar
+        background transparent !important
+        button
+            background board_color !important
+            border-color line_color !important
+            &:not(.selected)
+                background transparent !important
+            &.selected
+                & > span
+                    color navbar_text_color !important
+        span
+            color sec_text_color !important
+        img
+            filter invert(1) !important
      // 主站
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article|problem/solution/|ranking|discuss)).*")
     // 侧栏出现动画
@@ -1145,7 +1138,7 @@ mdeditor-patch()
     .forum-name[data-v-d6def288]
         color sec_text_color !important
 
-    .time[data-v-b0d342de]
+    .time,time
         color sec_text_color !important
 
     // 私信
@@ -1216,21 +1209,6 @@ mdeditor-patch()
     // 题目列表翻页条容器
     .bottom.float-bottom
         acrylic-bg()
-
-    // 翻页条
-    .page-bar
-        background transparent !important
-        button
-            border-color line_color !important
-            &:not(.selected)
-                background transparent !important
-            &.selected
-                & > span
-                    color navbar_text_color !important
-        span
-            color sec_text_color !important
-        img
-            filter invert(1) !important
 
     // 通知中心
     .title[data-v-71e80b39]
@@ -1368,16 +1346,16 @@ mdeditor-patch()
                 &:hover
                     background button_hover_bg_color
     // 小bug
-    .lfe-h1[data-v-2dfcfd35]
+    .header h1.lfe-h1
         width 100%
         display flex
         flex-direction row
         align-items center
         padding-bottom .2em
-    span[data-v-1fbfa3c2][title]
-    .lfe-h1[data-v-2dfcfd35]
+    .header h1.lfe-h1 span[title]
+    .header h1.lfe-h1
         white-space wrap
-    .lfe-h1[data-v-2dfcfd35]
+    .header h1.lfe-h1
         if animations
             animation 1s ease-in-out 0s title-show
 
@@ -1405,6 +1383,19 @@ mdeditor-patch()
         bottom 2px
     .user-header-container
         z-index 5
+    .author
+        background none !important
+
+        // 匹配各种时间小字（讨论区回帖，陶片放逐）
+        & > .left > .time, & > .time > time
+            color sec_text_color
+    // 团队讨论区
+    .discuss
+        acrylic-bg()
+        border none !important
+        border-radius 5px
+    .light-black
+        color sec_text_color !important
 //讨论区
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/(discuss|article)).*")
     // 回复样式（解决回复盖住了主页卡片）
@@ -1425,7 +1416,7 @@ mdeditor-patch()
         padding 5pt 5pt 5pt 5pt
         border-radius 6px
         color text_color
-    .name[data-v-88d5ecf4]
+    svg + .name
         color text_color !important
     a[title="全部板块"] > svg
         color sec_text_color !important
@@ -1433,7 +1424,7 @@ mdeditor-patch()
         color text_color
     .action > *
         color text_color !important
-    time
+    time,.time
         color sec_text_color !important
     // 讨论区bug
     .row.reply-info
@@ -1459,23 +1450,52 @@ mdeditor-patch()
             color sec_text_color
 
     // 讨论区楼主
-    .grey[data-v-70c65cc7]
+    .grey
         color sec_text_color
 
-    // 团队讨论区
-    .discuss[data-v-b878863e]
-        acrylic-bg()
-        border none !important
     .lfe-caption > span
         color text_color
     // 讨论区
-    .row-space-between[data-v-70c65cc7]
+    .row-space-between
         color subtitle_color // sec_text_color 太浅看不清
     .lfe-h3.name
         color text_color
     if remove-reply-container
         .edit-reply-container:not(.in-position)
             display none !important
+    .expand .expand
+            z-index 100
+            position relative
+            top 0
+            bottom 0
+            left 0
+            right 0
+            if anymore-acrylic
+                    acrylic-bg(0.2,2px)
+            else
+                    background board_color !important
+            padding: 4pt 4pt 4pt 4pt
+            border-radius 5pt
+            display: flex;
+            align-items center;
+            justify-content center
+            transition-duration 1s
+    .expand .expand:hover
+            z-index 100
+            position relative
+            top 0
+            bottom 0
+            left 0
+            right 0
+            if anymore-acrylic
+                    acrylic-bg(0.6,20px)
+            else
+                    background board_color !important
+            padding: 4pt 4pt 4pt 4pt
+            border-radius 5pt
+            display: flex;
+            align-items: center;
+            justify-content: center;
 // 洛谷专栏
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/article/[A-Za-z0-9]{8}$")
     // 文章区阅读进度条
@@ -1536,12 +1556,12 @@ mdeditor-patch()
 
         .banner-content // 作者栏
             color subtitle_color !important
-            .meta .label[data-v-29bb62a5]
+            .meta .label
                 color sec_text_color !important
             padding-left 1em // 作者栏和正文对齐，更整齐
             padding-right 1em
 
-        div[data-v-fc349d1c]:nth-child(2) // 正文
+        div[style="background-color: rgb(255\, 255\, 255);"]
             background none !important
 
             .article-content
@@ -1594,7 +1614,7 @@ mdeditor-patch()
     .reply-item[data-v-e01570a1]
         .meta
             background none !important
-            .time[data-v-85ede732]
+            .time
                 color sec_text_color
 
     // 评论区用卡片，为什么正文不用卡片？不知道前端在想什么
@@ -1708,38 +1728,39 @@ mdeditor-patch()
         color sec_text_color !important
         font-family font-stack
     // 展开全文按钮样式
-    a[data-v-29ea9268-s]
+    .expand > .expand
             z-index 100
-            position absolute
+            position relative
             top 0
             bottom 0
             left 0
             right 0
             if anymore-acrylic
-                    acrylic-bg(0.6,2px)
+                    acrylic-bg(0.2,2px)
             else
                     background board_color !important
             padding: 4pt 4pt 4pt 4pt
             border-radius 5pt
             display: flex;
-            align-items: center;
-            justify-content: center;
-    a[data-v-29ea9268-s]:hover
+            align-items center
+            justify-content center
+            transition-duration 1s
+    .expand > .expand:hover
             z-index 100
-            position absolute
+            position relative
             top 0
             bottom 0
             left 0
             right 0
             if anymore-acrylic
-                    acrylic-bg(0.6,2px)
+                    acrylic-bg(0.6,20px)
             else
                     background board_color !important
             padding: 4pt 4pt 4pt 4pt
             border-radius 5pt
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items center
+            justify-content center
     // 解决查看文章看不清
     a[data-v-9f81deee]
             color text_color !important

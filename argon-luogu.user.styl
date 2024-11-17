@@ -448,7 +448,7 @@ mdeditor-patch()
         word-break break-all
     // 全局设置边框
     // 除了按钮，输入框光标，分数线，难度选择，加载中动画，专栏查询框，输入框
-    *:not(button,.CodeMirror-cursor,.frac-line,.combo-wrapper > .text,.cm-cursor,div[data-v-bbdab89a][style*="border-width: 4px;"],.refined-input,input,h1,hr,blockquote)
+    *:not(button,.CodeMirror-cursor,.frac-line,.combo-wrapper > .text,.cm-cursor,div[style*="border-width: 4px;"],.refined-input,input,h1,hr,blockquote,.stat > .color-inverse > .field)
         border-color line_color !important
     // 设置全局背景
     body
@@ -533,14 +533,14 @@ mdeditor-patch()
         svg
             color post_text_color !important
     // 算法/来源/时间/状态 按钮样式
-    button[data-v-04eb14e9]
+    button.select-button[style="border-color: rgb(191\, 191\, 191); color: rgb(191\, 191\, 191); background-color: rgba(191\, 191\, 191\, 0);"]
         color sec_text_color !important
         background none !important
         border sec_text_color 1px solid !important
 
 
     // 选择框掉出来的下拉框
-    .dropdown:not(div[data-v-1f03983a],div[data-v-9d62b45a])
+    .dropdown
         acrylic-bg()
         color sec_text_color !important
         border none !important
@@ -719,7 +719,7 @@ mdeditor-patch()
                 color: #9C9E9E !important;
             }
     // 旋转动画
-    div[data-v-bbdab89a]
+    div[style="width: 64px; height: 64px; border-width: 4px;"]
         border-color text_color text_color #fff0 text_color !important
         border-left none
     // 分数线
@@ -737,11 +737,11 @@ mdeditor-patch()
         & > p
             color text_color
     // 解决AT超长题号导致换行的bug
-    span[data-v-beeebc6e][title]
+    div[currenttemplate="ProblemList"] > div > div > .table > .row-wrap > .row > span[title]
         color text_color !important
         white-space nowrap !important
     // footer展示动画
-    #app .main-container .wrapper[data-v-43a0de31]:last-child
+    #app .main-container .wrapper:last-child
         if animations
             animation footer-show .5s ease-out
     // 解决洛谷讨论区footer没有沉底
@@ -754,11 +754,8 @@ mdeditor-patch()
         color link_hover_color !important
     // 给有文字的颜色加上边框
     if word-border
-        span[data-v-0640126c]:not(.lfe-caption,.text,.color-none.login > *,.hide-side.color-default span)
-        span[data-v-263e39b8]:not(.color-none *)
-        a[href^="/user/"]:not(.color-none,.color-default,[data-v-bade3303])
+        a[href^="/user/"]:not(.color-none,.color-default)
         span.lg-punch-result
-        span[data-v-1143714b]:not([data-v-8b7f80ba],[data-v-0640126c],[data-v-f9624136])
         a[href^="/problem/list?difficulty="]
         a[href="https://help.luogu.com.cn/manual/luogu/problem/remote-judge"]
         a[href^="/remoteJudgeRedirect/"]
@@ -828,6 +825,8 @@ mdeditor-patch()
             color sec_text_color !important
         img
             filter invert(1) !important
+    .dropdown > .card
+        margin-bottom 0
      // 主站
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article|problem/solution/|ranking|discuss)).*")
     // 侧栏出现动画
@@ -852,13 +851,13 @@ mdeditor-patch()
     /* 页面布局 */
     // 覆盖掉洛谷主题自带的背景
     // 这几个排除是 mask
-    .background:not([data-v-14c11e75]):not([data-v-6b8e1cb0])
+    .background
         background none !important
         filter none !important
     // sweetalert2样式
     swal-patch()
     // 侧栏动画
-    nav[data-v-12f19ddc]
+    #app > nav
         if animations
             animation left-show .5s ease-out
     // 顶栏动画
@@ -870,7 +869,10 @@ mdeditor-patch()
     body > .header
         acrylic-bg() if header-acrylic
     .header-layout
-        acrylic() if header-acrylic
+        if header-acrylic
+            acrylic()
+        else
+            background board_color
         // background navbar_bg_color unless header-acrylic
         color subtitle_color !important
 
@@ -878,9 +880,9 @@ mdeditor-patch()
             font-size 50px
             color #ffffff
 
-        .functional[data-v-2dfcfd35] // 题目页面的按钮和时限栏
+        .functional // 题目页面的按钮和时限栏
             padding-top .7em // 这样不会显得离边太近
-            .stat > .color-inverse > .field[data-v-3c4577b8]
+            .stat > .color-inverse > .field
                 // 无亚克力时 sec_text_color 太深看不清
                 border-left-color subtitle_color !important if header-acrylic
 
@@ -911,7 +913,7 @@ mdeditor-patch()
                 color post_link_color
 
     // 头像悬浮
-    .center[data-v-1f03983a]
+    .center
         color post_text_color
         acrylic-bg()
         border none
@@ -921,12 +923,8 @@ mdeditor-patch()
     // 页面主体（所有卡片的容器）
     main.lfe-body
         background none !important
-    ul[data-v-01f8a102]
-        color text_color !important
-    .selected[data-v-01f8a102] > span
+    .selected > span
         color sec_text_color !important
-    span.lfe-caption[data-v-d131ad5e]
-        background board_color !important
     // 首页
     #app-old
         color post_text_color
@@ -940,8 +938,11 @@ mdeditor-patch()
                 color post_heading_color !important
 
         .am-panel // 块里的块
-            acrylic-bg(0.5,0)
-            border none
+            if anymore-acrylic
+                acrylic-bg(0.5,0)
+                border none
+            else
+                background board_color !important
 
         .highcharts-root
             tspan
@@ -1017,7 +1018,7 @@ mdeditor-patch()
             background link_hover_bg_color
 
         // 「查看算法标签」「查看讨论」等展开按钮
-        .expand-tip > span[data-v-e4b7c2ca]
+        .expand-tip > span
             color sec_text_color !important
 
         // 「展开全文」
@@ -1414,7 +1415,10 @@ mdeditor-patch()
         z-index 7 !important
     // 解决页码条显示不清楚
     .page-bar
-        acrylic-bg()
+        if card-acrylic
+            acrylic-bg()
+        else
+            background board_color !important
         padding 5pt 5pt 5pt 5pt
         border-radius 6px
         color text_color
@@ -1432,7 +1436,10 @@ mdeditor-patch()
     .row.reply-info
             padding 5pt 5pt 5pt 5pt
             margin-top 1.5em
-            acrylic-bg(0.6,10px)
+            if card-acrylic
+                acrylic-bg(0.6,10px)
+            else
+                background board_color
             border-radius 6px
             & > *
                 padding 0pt 5pt 0pt 5pt

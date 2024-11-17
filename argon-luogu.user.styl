@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20241117.11.49
+@version              20241117.19.57
 @namespace            https://userstyles.world/style/12397/re-2024
 @description          洛谷美化样式。
 @author               d0j1a1701
@@ -315,10 +315,20 @@ swal-patch()
         background none !important
 
 cseditor-patch()
+    #app:has(.cs-full-screen) > *:not(.main-container)
+    .main-container:has(.cs-full-screen) footer
+    div:has(.cs-full-screen) + *
+        display none
+    div:has(.cs-full-screen)
+        position fixed !important
+        top 0
+        bottom 0
+        left 0
+        right 0
     .cs-main,
     .cs-header
         font-family font-stack-codeblock
-        background rgba(acrylic_bg_color,0.5) !important
+        background rgba(acrylic_bg_color,1) !important
     .cs-toolbar
         & > div > span > span > span > svg
             border none !important
@@ -403,6 +413,8 @@ mdeditor-patch()
                         border-color line_color
     main.mobile-body.lfe-body
         z-index 1 !important
+    .radio-group > *
+        color sec_text_color !important
 /* 全局样式 */
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/).*")
     // 页面展示动画

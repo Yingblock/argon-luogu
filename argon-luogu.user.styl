@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20241116.22.23
+@version              20241117.09.02
 @namespace            https://userstyles.world/style/12397/re-2024
 @description          洛谷美化样式。
 @author               d0j1a1701
@@ -15,6 +15,7 @@
 @var                  checkbox card-acrylic "卡片亚克力效果" 1
 @var                  checkbox footer-acrylic "底栏亚克力效果" 1
 @var                  checkbox anymore-acrylic "其余亚克力效果" 1
+@var                  checkbox word-border "文字边框" 0
 @var                  checkbox remove-ad "去除洛谷广告" 0
 @var                  checkbox animations "动画" 1
 @var                  checkbox prose-bar "阅读进度条" 1
@@ -752,28 +753,29 @@ mdeditor-patch()
     svg[data-icon="square"]:hover
         color link_hover_color !important
     // 给有文字的颜色加上边框
-    span[data-v-0640126c]:not(.lfe-caption,.text,.color-none.login > *,.hide-side.color-default span)
-    span[data-v-263e39b8]:not(.color-none *)
-    a[href^="/user/"]:not(.color-none,.color-default,[data-v-bade3303])
-    span.lg-punch-result
-    span[data-v-1143714b]:not([data-v-8b7f80ba],[data-v-0640126c],[data-v-f9624136])
-    a[href^="/problem/list?difficulty="]
-    a[href="https://help.luogu.com.cn/manual/luogu/problem/remote-judge"]
-    a[href^="/remoteJudgeRedirect/"]
-    .list .item .avatar+div span:nth-child(1)
-    .item img[src^="https://cdn.luogu.com.cn/upload/usericon/"]+span span:nth-child(1)
-    .name:not([data-v-3ae85f6d])
-    .row .status
-        text-shadow 0 .5px line_color, .5px 0 line_color, -0.5px 0 line_color, 0 -0.5px line_color
-    // 给钩子加边框
-    a[href="/discuss/show/142324"] > svg > path
-        stroke line_color
-    a[href="/discuss/142324"] > svg > g
-    .list .item .avatar+div span:nth-child(1) svg g
-    .name+span[to="https://help.luogu.com.cn/manual/luogu/account/award-certify"] svg g
-    .item img[src^="https://cdn.luogu.com.cn/upload/usericon/"]+span span:nth-child(2) svg g
-        stroke line_color
-        stroke-width 20
+    if word-border
+        span[data-v-0640126c]:not(.lfe-caption,.text,.color-none.login > *,.hide-side.color-default span)
+        span[data-v-263e39b8]:not(.color-none *)
+        a[href^="/user/"]:not(.color-none,.color-default,[data-v-bade3303])
+        span.lg-punch-result
+        span[data-v-1143714b]:not([data-v-8b7f80ba],[data-v-0640126c],[data-v-f9624136])
+        a[href^="/problem/list?difficulty="]
+        a[href="https://help.luogu.com.cn/manual/luogu/problem/remote-judge"]
+        a[href^="/remoteJudgeRedirect/"]
+        .list .item .avatar+div span:nth-child(1)
+        .item img[src^="https://cdn.luogu.com.cn/upload/usericon/"]+span span:nth-child(1)
+        .name:not([data-v-3ae85f6d])
+        .row .status
+            text-shadow 0 .01px line_color, .01px 0 line_color, -0.01px 0 line_color, 0 -0.01px line_color
+        // 给钩子加边框
+        a[href="/discuss/show/142324"] > svg > path
+            stroke line_color
+        a[href="/discuss/142324"] > svg > g
+        .list .item .avatar+div span:nth-child(1) svg g
+        .name+span[to="https://help.luogu.com.cn/manual/luogu/account/award-certify"] svg g
+        .item img[src^="https://cdn.luogu.com.cn/upload/usericon/"]+span span:nth-child(2) svg g
+            stroke line_color
+            stroke-width 10
     // 页面展示动画
     main
     .inner-card

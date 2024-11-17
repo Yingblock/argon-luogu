@@ -387,7 +387,8 @@ mdeditor-patch()
         font-family font-stack-codeblock
     if dark-mode
         cseditor-patch()
-    .cs-main
+    // 设置编辑器字体（预览字体跟随全局字体）
+    .cs-editor
         font-family font-stack-codeblock
     .CodeMirror
         font-family font-stack-codeblock
@@ -447,8 +448,8 @@ mdeditor-patch()
         word-wrap break-word
         word-break break-all
     // 全局设置边框
-    // 除了按钮，输入框光标，分数线，难度选择，加载中动画，专栏查询框，输入框
-    *:not(button,.CodeMirror-cursor,.frac-line,.combo-wrapper > .text,.cm-cursor,div[style*="border-width: 4px;"],.refined-input,input,h1,hr,blockquote,.stat > .color-inverse > .field)
+    // 除了按钮，输入框光标，分数线，难度选择，加载中动画，专栏查询框，输入框，讨论版的名字 tag
+    *:not(button,.CodeMirror-cursor,.frac-line,.combo-wrapper > .text,.cm-cursor,div[data-v-bbdab89a][style*="border-width: 4px;"],span[data-v-c83b85a7][data-v-79cbc3ff],.refined-input,input,h1,hr,blockquote)
         border-color line_color !important
     // 设置全局背景
     body
@@ -478,7 +479,7 @@ mdeditor-patch()
     code, .hljs
         font-family font-stack-codeblock, monospace !important
 
-    // MD渲染
+    // Markdown 渲染
     mdeditor-patch()
 
     // 背景修改
@@ -553,7 +554,7 @@ mdeditor-patch()
     if remove-ad
         .side:not(.card.wrapper.padding-none > .side) > *:last-child:not(.l-card,.card)
             display none
-    // exlg代码块
+    // exlg 代码块
     .exlg-code-title
             acrylic-bg()
     // exlg emoji
@@ -562,7 +563,7 @@ mdeditor-patch()
     .exlg-emo-btn
             background board_color
             color text_color
-    // 解决exlg收起emoji时和亚克力冲突
+    // 解决 exlg 收起 emoji 时和亚克力冲突
     .exlg-emo:not(.exlg-show-emo)
             display none
     // 代码块
@@ -736,15 +737,15 @@ mdeditor-patch()
         & > h3,
         & > p
             color text_color
-    // 解决AT超长题号导致换行的bug
-    div[currenttemplate="ProblemList"] > div > div > .table > .row-wrap > .row > span[title]
+    // 解决 AT 超长题号导致换行的bug
+    span[data-v-beeebc6e][title]
         color text_color !important
         white-space nowrap !important
-    // footer展示动画
-    #app .main-container .wrapper:last-child
+    // footer 展示动画
+    #app .main-container .wrapper[data-v-43a0de31]:last-child
         if animations
             animation footer-show .5s ease-out
-    // 解决洛谷讨论区footer没有沉底
+    // 解决洛谷讨论区 footer 没有沉底
     .footer
         padding-bottom 1.5em !important
     // 复选框样式
@@ -934,6 +935,7 @@ mdeditor-patch()
             else
                 background board_color !important
             border-radius 5px
+        .am-hide-sm // 为啥要为友情链接单独设置一个字体颜色？而且这个颜色覆盖到了做题计划分数和对勾的颜色了
             strong //「友情链接」
                 color post_heading_color !important
 
@@ -1432,7 +1434,7 @@ mdeditor-patch()
         color text_color !important
     time,.time
         color sec_text_color !important
-    // 讨论区bug
+    // 讨论区 bug
     .row.reply-info
             padding 5pt 5pt 5pt 5pt
             margin-top 1.5em
@@ -1479,10 +1481,7 @@ mdeditor-patch()
             bottom 0
             left 0
             right 0
-            if anymore-acrylic
-                    acrylic-bg(0.2,2px)
-            else
-                    background board_color !important
+            background none !important // 展开按钮如果有背景会显示出一条突兀的色带，不如没有背景
             padding: 4pt 4pt 4pt 4pt
             border-radius 5pt
             display: flex;
@@ -1496,10 +1495,7 @@ mdeditor-patch()
             bottom 0
             left 0
             right 0
-            if anymore-acrylic
-                    acrylic-bg(0.6,20px)
-            else
-                    background board_color !important
+            background none !important
             padding: 4pt 4pt 4pt 4pt
             border-radius 5pt
             display: flex;
@@ -1669,7 +1665,7 @@ mdeditor-patch()
             background text_color
             animation bar 5s linear
             animation-timeline scroll()
-// 洛谷新UI
+// 洛谷新 UI
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/(article|problem/solution|ranking|).*$")
     // 侧栏展示动画
     @keyframes left-navbar-show
@@ -1744,10 +1740,7 @@ mdeditor-patch()
             bottom 0
             left 0
             right 0
-            if anymore-acrylic
-                    acrylic-bg(0.2,2px)
-            else
-                    background board_color !important
+            background none !important
             padding: 4pt 4pt 4pt 4pt
             border-radius 5pt
             display: flex;
@@ -1761,10 +1754,7 @@ mdeditor-patch()
             bottom 0
             left 0
             right 0
-            if anymore-acrylic
-                    acrylic-bg(0.6,20px)
-            else
-                    background board_color !important
+            background none !important
             padding: 4pt 4pt 4pt 4pt
             border-radius 5pt
             display: flex;
@@ -1828,7 +1818,7 @@ mdeditor-patch()
         & > .east > svg
             padding-left 5pt
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/ranking\?.*$")
-    // 咕值列表大大大大大大大大大大大改动（约等于重构
+    // 咕值列表大大大大大大大大大大大改动（约等于重构）
     .list-wrap.table
         display grid !important
     .header-wrap

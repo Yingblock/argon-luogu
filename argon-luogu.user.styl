@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20241117.19.57
+@version              20241125.21.00
 @namespace            https://userstyles.world/style/12397/re-2024
 @description          洛谷美化样式。
 @author               d0j1a1701
@@ -315,16 +315,6 @@ swal-patch()
         background none !important
 
 cseditor-patch()
-    #app:has(.cs-full-screen) > *:not(.main-container)
-    .main-container:has(.cs-full-screen) footer
-    div:has(.cs-full-screen) + *
-        display none
-    div:has(.cs-full-screen)
-        position fixed !important
-        top 0
-        bottom 0
-        left 0
-        right 0
     .cs-main,
     .cs-header
         font-family font-stack-codeblock
@@ -383,6 +373,16 @@ cseditor-patch()
     .cs-footer
         acrylic-bg()
 mdeditor-patch()
+    #app:has(.cs-full-screen) > *:not(.main-container)
+    .main-container:has(.cs-full-screen) footer
+    div:has(.cs-full-screen) + *
+        display none
+    div:has(.cs-full-screen)
+        position fixed !important
+        top 0
+        bottom 0
+        left 0
+        right 0
     .mp-editor-container
         .mp-editor-toolbar
             acrylic-bg()
@@ -840,6 +840,9 @@ mdeditor-patch()
             filter invert(1) !important
     .dropdown > .card
         margin-bottom 0
+    .modal p
+        color text_color
+        font-family font-stack !important
      // 主站
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article|problem/solution/|ranking|discuss)).*")
     // 侧栏出现动画

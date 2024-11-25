@@ -1277,8 +1277,15 @@ mdeditor-patch()
         white-space wrap
     // 个人主页练习悬浮窗
     .tooltip[data-v-05afcf76]
-        position absolute
-        margin -400px 0 0 -75px // 这个窗会莫名其妙飞走，为什么？我也不知道，反正这样能修好
+        position: fixed !important
+        @keyframes Canvas-fix-ani
+            from
+                transform: translateY(0)
+            to
+                transform: translateY(-10000px)
+        animation: Canvas-fix-ani 3s linear !important
+        animation-timeline: scroll(root) !important
+        animation-range: 0vh 10000px !important
 
     // 一些小字
     .info-content[data-v-8b7f80ba], .caption[data-v-325cf452]

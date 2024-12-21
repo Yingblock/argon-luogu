@@ -1,6 +1,6 @@
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20241125.21.00
+@version              20241221.11.45
 @namespace            https://userstyles.world/style/12397/re-2024
 @description          洛谷美化样式。
 @author               d0j1a1701
@@ -15,7 +15,6 @@
 @var                  checkbox card-acrylic "卡片亚克力效果" 1
 @var                  checkbox footer-acrylic "底栏亚克力效果" 1
 @var                  checkbox anymore-acrylic "其余亚克力效果" 1
-@var                  checkbox word-border "文字边框" 0
 @var                  checkbox remove-ad "去除洛谷广告" 0
 @var                  checkbox animations "动画" 1
 @var                  checkbox prose-bar "阅读进度条" 1
@@ -313,6 +312,8 @@ swal-patch()
     .swal2-icon > *[style*='rgba(0'],
     .swal2-icon > *[style*='rgba(255']
         background none !important
+    .swal2-success-ring
+        border-color line_color
 
 cseditor-patch()
     .cs-main,
@@ -426,13 +427,13 @@ mdeditor-patch()
     // 页面内部小卡片展示动画
     @keyframes inner-show
         0%
-            transform translateY(1em)
+            transform translateY(0.5em)
         100%
             transform translateY(0em)
     // 题目标题，讨论标题展示动画
     @keyframes title-show
         0%
-            transform translateX(-1em)
+            transform translateX(-0.5em)
         100%
             transform translateX(0m)
     // 输入框选中动画
@@ -440,9 +441,9 @@ mdeditor-patch()
         0%
             transform scale(1)
         30%
-            transform scale(1.05)
+            transform scale(1.01)
         70%
-            transform scale(0.95)
+            transform scale(0.99)
         100%
             transform scale(1)
     // 头像悬浮动画
@@ -450,9 +451,9 @@ mdeditor-patch()
         0%
             transform scale(1)
         33%
-            transform scale(1.1)
+            transform scale(1.01)
         66%
-            transform scale(0.9)
+            transform scale(0.99)
         100%
             transform scale(1)
     // 所有的文字强制折行
@@ -460,8 +461,8 @@ mdeditor-patch()
         word-wrap break-word
         word-break break-all
     // 全局设置边框
-    // 除了按钮，输入框光标，分数线，难度选择，加载中动画，专栏查询框，输入框，讨论版的名字 tag
-    *:not(button,.CodeMirror-cursor,.frac-line,.combo-wrapper > .text,.cm-cursor,div[data-v-bbdab89a][style*="border-width: 4px;"],span[data-v-c83b85a7][data-v-79cbc3ff],.refined-input,input,h1,hr,blockquote)
+    // 除了按钮，输入框光标，分数线，难度选择，加载中动画，专栏查询框，输入框，讨论版的名字 tag，一级标题二级标题三级标题分割线，输入框
+    *:not(button,.CodeMirror-cursor,.frac-line,.combo-wrapper > .text,.cm-cursor,div[data-v-bbdab89a][style*="border-width: 4px;"],span[data-v-c83b85a7][data-v-79cbc3ff],.refined-input,input,h1,h2,h3,hr,blockquote,textarea,.row,.sub-header,.swal2-icon *,.swal2-icon)
         border-color line_color !important
     // 设置全局背景
     body
@@ -503,7 +504,7 @@ mdeditor-patch()
         background-attachment fixed
 
     // 输入框样式修改
-    input[type=text], input[type=password]
+    input[type=text]:not(.el-input *), input[type=password]:not(.el-input *)
         color sec_text_color !important
         background none !important
         border sec_text_color 1px solid !important
@@ -554,7 +555,7 @@ mdeditor-patch()
 
     // 选择框掉出来的下拉框
     .dropdown:not([style^="--dropdown-z-index: 1005;"])
-        acrylic-bg()
+        acrylic()
         color sec_text_color !important
         border none !important
         font-family font-stack
@@ -753,10 +754,6 @@ mdeditor-patch()
     span[data-v-beeebc6e][title]
         color text_color !important
         white-space nowrap !important
-    // footer 展示动画
-    #app .main-container .wrapper[data-v-43a0de31]:last-child
-        if animations
-            animation footer-show .5s ease-out
     // 解决洛谷讨论区 footer 没有沉底
     .footer
         padding-bottom 1.5em !important
@@ -765,32 +762,11 @@ mdeditor-patch()
         color sec_text_color !important
     svg[data-icon="square"]:hover
         color link_hover_color !important
-    // 给有文字的颜色加上边框
-    if word-border
-        a[href^="/user/"]:not(.color-none,.color-default)
-        span.lg-punch-result
-        a[href^="/problem/list?difficulty="]
-        a[href="https://help.luogu.com.cn/manual/luogu/problem/remote-judge"]
-        a[href^="/remoteJudgeRedirect/"]
-        .list .item .avatar+div span:nth-child(1)
-        .item img[src^="https://cdn.luogu.com.cn/upload/usericon/"]+span span:nth-child(1)
-        .name:not([data-v-3ae85f6d])
-        .row .status
-            text-shadow 0 .01px line_color, .01px 0 line_color, -0.01px 0 line_color, 0 -0.01px line_color
-        // 给钩子加边框
-        a[href="/discuss/show/142324"] > svg > path
-            stroke line_color
-        a[href="/discuss/142324"] > svg > g
-        .list .item .avatar+div span:nth-child(1) svg g
-        .name+span[to="https://help.luogu.com.cn/manual/luogu/account/award-certify"] svg g
-        .item img[src^="https://cdn.luogu.com.cn/upload/usericon/"]+span span:nth-child(2) svg g
-            stroke line_color
-            stroke-width 10
     // 页面展示动画
     main
     .inner-card
         if animations
-            animation .7s ease 0s show
+            animation 1s ease 0s show
     .info-card
         overflow-y visible !important
     // 解决更多功能按钮背景颜色切换过快
@@ -843,24 +819,13 @@ mdeditor-patch()
     .modal p
         color text_color
         font-family font-stack !important
+    
      // 主站
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article|problem/solution/|ranking|discuss)).*")
-    // 侧栏出现动画
-    @keyframes left-show
-        0%
-            transform translateX(-120%)
-        100%
-            transform translateX(0)
     // 顶栏出现动画
     @keyframes top-show
         0%
             transform translateY(-120%)
-        100%
-            transform translateY(0)
-    // footer出现动画
-    @keyframes footer-show
-        0%
-            transform translateY(120%)
         100%
             transform translateY(0)
 
@@ -872,12 +837,7 @@ mdeditor-patch()
         filter none !important
     // sweetalert2样式
     swal-patch()
-    // 侧栏动画
-    #app > nav
-        if animations
-            animation left-show .5s ease-out
     // 顶栏动画
-    .header-layout.tiny
     .user-nav
         if animations
             animation top-show .5s ease-out
@@ -1066,6 +1026,7 @@ mdeditor-patch()
                         acrylic()
                 else
                         background board_color !important
+        
     .card[data-v-6febb0e8]
         border-bottom #fff0 !important
     // 提交代码
@@ -1658,8 +1619,6 @@ mdeditor-patch()
         position relative
         top 5em
         color sec_text_color !important
-        if animations
-            animation footer-show .5s ease-out
     .toc:hover
         if animations
             transform translateY(-0.3em) !important
@@ -1689,18 +1648,6 @@ mdeditor-patch()
             animation-timeline scroll()
 // 洛谷新 UI
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/(article|problem/solution|ranking|).*$")
-    // 侧栏展示动画
-    @keyframes left-navbar-show
-        0%
-            transform translateX(-100%)
-        100%
-            transform translateX(0)
-    // 顶栏展示动画
-    @keyframes top-navbar-show
-        0%
-            transform translateY(-100%)
-        100%
-            transform translateY(0)
     // sweetalert2样式
     swal-patch()
     // 侧栏样式和个人卡片样式
@@ -1718,14 +1665,8 @@ mdeditor-patch()
                     filter none !important
         .title
             color navbar_text_color !important
-    // 侧栏展示动画
-    .lside
-        if animations
-            animation left-navbar-show .5s ease-out
     // 顶栏展示动画
     .top-bar
-        if animations
-            animation top-navbar-show .5s ease-out
         acrylic-bg() if header-acrylic
         background navbar_bg_color !important unless header-acrylic
         color subtitle_color !important
@@ -1923,9 +1864,8 @@ mdeditor-patch()
             transition opacity 0.5s ease-in-out
         .container:hover
             opacity 1 !important
-// 提交记录样式
-@-moz-document regexp("^https?://www.luogu.com(.cn)?/record/.*$")
-    // 给看不清的文字加边框
-    .info-rows div:nth-child(n+2):not(:last-child) span:nth-child(2)
-    .name
-        text-shadow 0 .5px line_color, .5px 0 line_color, -0.5px 0 line_color, 0 -0.5px line_color
+@-moz-document regexp("^https?://www.luogu.com(.cn)?/theme/list.*$")
+    #app
+        overflow hidden
+    [currenttemplate="ThemeList"] .card
+        overflow visible !important

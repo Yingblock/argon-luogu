@@ -1,7 +1,8 @@
+
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20241117.11.49
-@namespace            https://userstyles.world/style/12397/re-2024
+@version              20250113.17.01
+@namespace            https://userstyles.world/style/18510/argon-luogu-dev
 @description          洛谷美化样式。
 @author               d0j1a1701
 @license              MIT
@@ -15,7 +16,6 @@
 @var                  checkbox card-acrylic "卡片亚克力效果" 1
 @var                  checkbox footer-acrylic "底栏亚克力效果" 1
 @var                  checkbox anymore-acrylic "其余亚克力效果" 1
-@var                  checkbox word-border "文字边框" 0
 @var                  checkbox remove-ad "去除洛谷广告" 0
 @var                  checkbox animations "动画" 1
 @var                  checkbox prose-bar "阅读进度条" 1
@@ -110,7 +110,7 @@ acrylic(arc-opacity=0.5,blur-radius=10px,no_shadow=false)
         acr-bgcolor = rgba(acrylic_bg_color, arc-opacity)
         background acr-bgcolor !important
         backdrop-filter blur(blur-radius) !important unless blur-radius == 0
-        box-shadow    0 10px    30px    rgba(0, 0, 0, 0.1),
+        box-shadow    0 1px    3px    rgba(0, 0, 0, .01),
                     0 1px    8px        rgba(0, 0, 0, 0.2) unless no_shadow !important
         content    ""
         border-radius @border-radius if @border-radius
@@ -128,7 +128,7 @@ acrylic-bg(arc-opacity=0.5,blur-radius=10px,no_shadow=false)
     acr-bgcolor = rgba(acrylic_bg_color, arc-opacity)
     background acr-bgcolor !important
     backdrop-filter blur(blur-radius) !important unless blur-radius == 0
-    box-shadow    0 10px    30px    rgba(0, 0, 0, 0.1),
+    box-shadow    0 1px    3px    rgba(0, 0, 0, 0.01),
                 0 1px    8px        rgba(0, 0, 0, 0.2) unless no_shadow !important
 // 修改 Markdown 渲染内容样式
 markdown-patch()
@@ -313,12 +313,14 @@ swal-patch()
     .swal2-icon > *[style*='rgba(0'],
     .swal2-icon > *[style*='rgba(255']
         background none !important
+    .swal2-success-ring
+        border-color line_color
 
 cseditor-patch()
     .cs-main,
     .cs-header
         font-family font-stack-codeblock
-        background rgba(acrylic_bg_color,0.5) !important
+        background rgba(acrylic_bg_color,1) !important
     .cs-toolbar
         & > div > span > span > span > svg
             border none !important
@@ -373,6 +375,16 @@ cseditor-patch()
     .cs-footer
         acrylic-bg()
 mdeditor-patch()
+    #app:has(.cs-full-screen) > *:not(.main-container)
+    .main-container:has(.cs-full-screen) footer
+    div:has(.cs-full-screen) + *
+        display none
+    div:has(.cs-full-screen)
+        position fixed !important
+        top 0
+        bottom 0
+        left 0
+        right 0
     .mp-editor-container
         .mp-editor-toolbar
             acrylic-bg()
@@ -403,24 +415,26 @@ mdeditor-patch()
                         border-color line_color
     main.mobile-body.lfe-body
         z-index 1 !important
+    .radio-group > *
+        color sec_text_color !important
 /* 全局样式 */
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/).*")
     // 页面展示动画
     @keyframes show
         0%
-            transform translateY(2em)
+            transform translateY(1em)
         100%
             transform translateY(0em)
     // 页面内部小卡片展示动画
     @keyframes inner-show
         0%
-            transform translateY(1em)
+            transform translateY(0.2em)
         100%
             transform translateY(0em)
     // 题目标题，讨论标题展示动画
     @keyframes title-show
         0%
-            transform translateX(-1em)
+            transform translateX(-0.2em)
         100%
             transform translateX(0m)
     // 输入框选中动画
@@ -428,9 +442,9 @@ mdeditor-patch()
         0%
             transform scale(1)
         30%
-            transform scale(1.05)
+            transform scale(1.01)
         70%
-            transform scale(0.95)
+            transform scale(0.99)
         100%
             transform scale(1)
     // 头像悬浮动画
@@ -438,18 +452,28 @@ mdeditor-patch()
         0%
             transform scale(1)
         33%
-            transform scale(1.1)
+            transform scale(1.01)
         66%
-            transform scale(0.9)
+            transform scale(0.99)
         100%
             transform scale(1)
     // 所有的文字强制折行
     *
         word-wrap break-word
         word-break break-all
-    // 全局设置边框
-    // 除了按钮，输入框光标，分数线，难度选择，加载中动画，专栏查询框，输入框，讨论版的名字 tag
-    *:not(button,.CodeMirror-cursor,.frac-line,.combo-wrapper > .text,.cm-cursor,div[data-v-bbdab89a][style*="border-width: 4px;"],span[data-v-c83b85a7][data-v-79cbc3ff],.refined-input,input,h1,hr,blockquote)
+    .row
+    .header
+    .dropdown
+    .dropdown .center
+    .cs-main
+    .cs-header
+    .cs-footer
+    .cs-editor
+    .mp-editor-container
+    .mp-editor-ground
+    .mp-editor-zone
+    .card
+    .l-card
         border-color line_color !important
     // 设置全局背景
     body
@@ -491,7 +515,7 @@ mdeditor-patch()
         background-attachment fixed
 
     // 输入框样式修改
-    input[type=text], input[type=password]
+    input[type=text]:not(.el-input *), input[type=password]:not(.el-input *)
         color sec_text_color !important
         background none !important
         border sec_text_color 1px solid !important
@@ -534,7 +558,7 @@ mdeditor-patch()
         svg
             color post_text_color !important
     // 算法/来源/时间/状态 按钮样式
-    button[data-v-04eb14e9]
+    button.select-button[style="border-color: rgb(191\, 191\, 191); color: rgb(191\, 191\, 191); background-color: rgba(191\, 191\, 191\, 0);"]
         color sec_text_color !important
         background none !important
         border sec_text_color 1px solid !important
@@ -542,7 +566,7 @@ mdeditor-patch()
 
     // 选择框掉出来的下拉框
     .dropdown:not([style^="--dropdown-z-index: 1005;"])
-        acrylic-bg()
+        acrylic()
         color sec_text_color !important
         border none !important
         font-family font-stack
@@ -720,7 +744,7 @@ mdeditor-patch()
                 color: #9C9E9E !important;
             }
     // 旋转动画
-    div[data-v-bbdab89a]
+    div[style="width: 64px; height: 64px; border-width: 4px;"]
         border-color text_color text_color #fff0 text_color !important
         border-left none
     // 分数线
@@ -741,10 +765,6 @@ mdeditor-patch()
     span[data-v-beeebc6e][title]
         color text_color !important
         white-space nowrap !important
-    // footer 展示动画
-    #app .main-container .wrapper[data-v-43a0de31]:last-child
-        if animations
-            animation footer-show .5s ease-out
     // 解决洛谷讨论区 footer 没有沉底
     .footer
         padding-bottom 1.5em !important
@@ -753,35 +773,11 @@ mdeditor-patch()
         color sec_text_color !important
     svg[data-icon="square"]:hover
         color link_hover_color !important
-    // 给有文字的颜色加上边框
-    if word-border
-        span[data-v-0640126c]:not(.lfe-caption,.text,.color-none.login > *,.hide-side.color-default span)
-        span[data-v-263e39b8]:not(.color-none *)
-        a[href^="/user/"]:not(.color-none,.color-default,[data-v-bade3303])
-        span.lg-punch-result
-        span[data-v-1143714b]:not([data-v-8b7f80ba],[data-v-0640126c],[data-v-f9624136])
-        a[href^="/problem/list?difficulty="]
-        a[href="https://help.luogu.com.cn/manual/luogu/problem/remote-judge"]
-        a[href^="/remoteJudgeRedirect/"]
-        .list .item .avatar+div span:nth-child(1)
-        .item img[src^="https://cdn.luogu.com.cn/upload/usericon/"]+span span:nth-child(1)
-        .name:not([data-v-3ae85f6d])
-        .row .status
-            text-shadow 0 .01px line_color, .01px 0 line_color, -0.01px 0 line_color, 0 -0.01px line_color
-        // 给钩子加边框
-        a[href="/discuss/show/142324"] > svg > path
-            stroke line_color
-        a[href="/discuss/142324"] > svg > g
-        .list .item .avatar+div span:nth-child(1) svg g
-        .name+span[to="https://help.luogu.com.cn/manual/luogu/account/award-certify"] svg g
-        .item img[src^="https://cdn.luogu.com.cn/upload/usericon/"]+span span:nth-child(2) svg g
-            stroke line_color
-            stroke-width 10
     // 页面展示动画
     main
     .inner-card
         if animations
-            animation .7s ease 0s show
+            animation 1s ease 0s show
     .info-card
         overflow-y visible !important
     // 解决更多功能按钮背景颜色切换过快
@@ -809,11 +805,16 @@ mdeditor-patch()
     .dropdown.shown div .user-info *
         font-family font-stack !important
     // 洛谷日爆样式
-    .page .page-bottom
+    .page:has(.page-bottom)
         margin-top 1em
         padding-bottom 2em
+        padding-top 2em
         border-radius 6px
         acrylic-bg()
+        max-width 50vw
+        & *
+            max-width 50vw
+            color text_color
     // 翻页条
     .page-bar
         background transparent !important
@@ -829,49 +830,61 @@ mdeditor-patch()
             color sec_text_color !important
         img
             filter invert(1) !important
+    .dropdown > .card
+        margin-bottom 0
+    .modal p
+        color text_color
+        font-family font-stack !important
+
      // 主站
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article|problem/solution/|ranking|discuss)).*")
-    // 侧栏出现动画
-    @keyframes left-show
-        0%
-            transform translateX(-120%)
-        100%
-            transform translateX(0)
-    // 顶栏出现动画
-    @keyframes top-show
-        0%
-            transform translateY(-120%)
-        100%
-            transform translateY(0)
-    // footer出现动画
-    @keyframes footer-show
-        0%
-            transform translateY(120%)
-        100%
-            transform translateY(0)
-
+    body:not(body:has(.user-nav)):after
+    body:not(body:has(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"])):after
+        content ""
+        background main-background
+        background-repeat no-repeat
+        background-size cover
+        background-position center
+        background-attachment fixed
+        z-index 998244353
+        position fixed
+        top 0
+        bottom 0
+        left 0
+        right 0
+    body:has(.user-nav):after
+    body:not(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"]):after
+        opacity 0
+        transition all 1s ease-out .2s
+        content ""
+        background main-background
+        background-repeat no-repeat
+        background-size cover
+        background-position center
+        background-attachment fixed
+        z-index -998244353
+        position fixed
+        top 0
+        bottom 0
+        left 0
+        right 0
+        pointer-events none
     /* 页面布局 */
     // 覆盖掉洛谷主题自带的背景
     // 这几个排除是 mask
-    .background:not([data-v-14c11e75]):not([data-v-6b8e1cb0])
+    .background
         background none !important
         filter none !important
     // sweetalert2样式
     swal-patch()
-    // 侧栏动画
-    nav[data-v-12f19ddc]
-        if animations
-            animation left-show .5s ease-out
-    // 顶栏动画
-    .header-layout.tiny
-    .user-nav
-        if animations
-            animation top-show .5s ease-out
     // 顶栏样式
     body > .header
         acrylic-bg() if header-acrylic
     .header-layout
-        acrylic() if header-acrylic
+        if header-acrylic
+            acrylic()
+        else
+            background board_color
         // background navbar_bg_color unless header-acrylic
         color subtitle_color !important
 
@@ -879,9 +892,9 @@ mdeditor-patch()
             font-size 50px
             color #ffffff
 
-        .functional[data-v-2dfcfd35] // 题目页面的按钮和时限栏
+        .functional // 题目页面的按钮和时限栏
             padding-top .7em // 这样不会显得离边太近
-            .stat > .color-inverse > .field[data-v-3c4577b8]
+            .stat > .color-inverse > .field
                 // 无亚克力时 sec_text_color 太深看不清
                 border-left-color subtitle_color !important if header-acrylic
 
@@ -912,7 +925,7 @@ mdeditor-patch()
                 color post_link_color
 
     // 头像悬浮
-    .center[data-v-1f03983a]
+    .center
         color post_text_color
         acrylic-bg()
         border none
@@ -922,12 +935,8 @@ mdeditor-patch()
     // 页面主体（所有卡片的容器）
     main.lfe-body
         background none !important
-    ul[data-v-01f8a102]
-        color text_color !important
-    .selected[data-v-01f8a102] > span
+    .selected > span
         color sec_text_color !important
-    span.lfe-caption[data-v-d131ad5e]
-        background board_color !important
     // 首页
     #app-old
         color post_text_color
@@ -942,8 +951,11 @@ mdeditor-patch()
                 color post_heading_color !important
 
         .am-panel // 块里的块
-            acrylic-bg(0.5,0)
-            border none
+            if anymore-acrylic
+                acrylic-bg(0.5,0)
+                border none
+            else
+                background board_color !important
 
         .highcharts-root
             tspan
@@ -1019,7 +1031,7 @@ mdeditor-patch()
             background link_hover_bg_color
 
         // 「查看算法标签」「查看讨论」等展开按钮
-        .expand-tip > span[data-v-e4b7c2ca]
+        .expand-tip > span
             color sec_text_color !important
 
         // 「展开全文」
@@ -1050,6 +1062,7 @@ mdeditor-patch()
                         acrylic()
                 else
                         background board_color !important
+
     .card[data-v-6febb0e8]
         border-bottom #fff0 !important
     // 提交代码
@@ -1261,8 +1274,15 @@ mdeditor-patch()
         white-space wrap
     // 个人主页练习悬浮窗
     .tooltip[data-v-05afcf76]
-        position absolute
-        margin -400px 0 0 -75px // 这个窗会莫名其妙飞走，为什么？我也不知道，反正这样能修好
+        position: fixed !important
+        @keyframes Canvas-fix-ani
+            from
+                transform: translateY(0)
+            to
+                transform: translateY(-10000px)
+        animation: Canvas-fix-ani 3s linear !important
+        animation-timeline: scroll(root) !important
+        animation-range: 0vh 10000px !important
 
     // 一些小字
     .info-content[data-v-8b7f80ba], .caption[data-v-325cf452]
@@ -1400,8 +1420,15 @@ mdeditor-patch()
         border-radius 5px
     .light-black
         color sec_text_color !important
+    [currenttemplate="UserShow"] .select-header-tiny ul li:not(.selected) span
+        color sec_text_color !important
+    [currenttemplate="UserShow"] .select-header-tiny ul li.selected span
+        color text_color !important
 //讨论区
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/(discuss|article)).*")
+    .header-layout h1.lfe-h1
+        if animations
+            animation 1s ease-in-out 0s title-show
     // 回复样式（解决回复盖住了主页卡片）
     .card:not(.reply-editor):hover
         z-index 6
@@ -1416,7 +1443,10 @@ mdeditor-patch()
         z-index 7 !important
     // 解决页码条显示不清楚
     .page-bar
-        acrylic-bg()
+        if card-acrylic
+            acrylic-bg()
+        else
+            background board_color !important
         padding 5pt 5pt 5pt 5pt
         border-radius 6px
         color text_color
@@ -1434,7 +1464,10 @@ mdeditor-patch()
     .row.reply-info
             padding 5pt 5pt 5pt 5pt
             margin-top 1.5em
-            acrylic-bg(0.6,10px)
+            if card-acrylic
+                acrylic-bg(0.6,10px)
+            else
+                background board_color
             border-radius 6px
             & > *
                 padding 0pt 5pt 0pt 5pt
@@ -1629,8 +1662,6 @@ mdeditor-patch()
         position relative
         top 5em
         color sec_text_color !important
-        if animations
-            animation footer-show .5s ease-out
     .toc:hover
         if animations
             transform translateY(-0.3em) !important
@@ -1660,18 +1691,37 @@ mdeditor-patch()
             animation-timeline scroll()
 // 洛谷新 UI
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/(article|problem/solution|ranking|).*$")
-    // 侧栏展示动画
-    @keyframes left-navbar-show
-        0%
-            transform translateX(-100%)
-        100%
-            transform translateX(0)
-    // 顶栏展示动画
-    @keyframes top-navbar-show
-        0%
-            transform translateY(-100%)
-        100%
-            transform translateY(0)
+    body:not(body:has(> .dropdown)):after
+    body:not(body:has(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"])):after
+        content ""
+        background main-background
+        background-repeat no-repeat
+        background-size cover
+        background-position center
+        background-attachment fixed
+        z-index 998244353
+        position fixed
+        top 0
+        bottom 0
+        left 0
+        right 0
+    body:has(> .dropdown):after
+    body:not(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"]):after
+        opacity 0
+        transition all 1s ease-out .2s
+        content ""
+        background main-background
+        background-repeat no-repeat
+        background-size cover
+        background-position center
+        background-attachment fixed
+        z-index -998244353
+        position fixed
+        top 0
+        bottom 0
+        left 0
+        right 0
+        pointer-events none
     // sweetalert2样式
     swal-patch()
     // 侧栏样式和个人卡片样式
@@ -1689,14 +1739,8 @@ mdeditor-patch()
                     filter none !important
         .title
             color navbar_text_color !important
-    // 侧栏展示动画
-    .lside
-        if animations
-            animation left-navbar-show .5s ease-out
     // 顶栏展示动画
     .top-bar
-        if animations
-            animation top-navbar-show .5s ease-out
         acrylic-bg() if header-acrylic
         background navbar_bg_color !important unless header-acrylic
         color subtitle_color !important
@@ -1810,6 +1854,8 @@ mdeditor-patch()
         border-color transparent !important
         & > .east > svg
             padding-left 5pt
+    h3.lfe-h3
+        color text_color
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/ranking\?.*$")
     // 咕值列表大大大大大大大大大大大改动（约等于重构）
     .list-wrap.table
@@ -1894,9 +1940,8 @@ mdeditor-patch()
             transition opacity 0.5s ease-in-out
         .container:hover
             opacity 1 !important
-// 提交记录样式
-@-moz-document regexp("^https?://www.luogu.com(.cn)?/record/.*$")
-    // 给看不清的文字加边框
-    .info-rows div:nth-child(n+2):not(:last-child) span:nth-child(2)
-    .name
-        text-shadow 0 .5px line_color, .5px 0 line_color, -0.5px 0 line_color, 0 -0.5px line_color
+@-moz-document regexp("^https?://www.luogu.com(.cn)?/theme/list.*$")
+    #app
+        overflow hidden
+    [currenttemplate="ThemeList"] .card
+        overflow visible !important

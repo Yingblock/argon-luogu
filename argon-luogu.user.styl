@@ -1,7 +1,8 @@
+
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20241221.11.45
-@namespace            https://userstyles.world/style/12397/re-2024
+@version              20250113.17.01
+@namespace            https://userstyles.world/style/18510/argon-luogu-dev
 @description          洛谷美化样式。
 @author               d0j1a1701
 @license              MIT
@@ -109,7 +110,7 @@ acrylic(arc-opacity=0.5,blur-radius=10px,no_shadow=false)
         acr-bgcolor = rgba(acrylic_bg_color, arc-opacity)
         background acr-bgcolor !important
         backdrop-filter blur(blur-radius) !important unless blur-radius == 0
-        box-shadow    0 10px    30px    rgba(0, 0, 0, 0.1),
+        box-shadow    0 1px    3px    rgba(0, 0, 0, .01),
                     0 1px    8px        rgba(0, 0, 0, 0.2) unless no_shadow !important
         content    ""
         border-radius @border-radius if @border-radius
@@ -127,7 +128,7 @@ acrylic-bg(arc-opacity=0.5,blur-radius=10px,no_shadow=false)
     acr-bgcolor = rgba(acrylic_bg_color, arc-opacity)
     background acr-bgcolor !important
     backdrop-filter blur(blur-radius) !important unless blur-radius == 0
-    box-shadow    0 10px    30px    rgba(0, 0, 0, 0.1),
+    box-shadow    0 1px    3px    rgba(0, 0, 0, 0.01),
                 0 1px    8px        rgba(0, 0, 0, 0.2) unless no_shadow !important
 // 修改 Markdown 渲染内容样式
 markdown-patch()
@@ -421,19 +422,19 @@ mdeditor-patch()
     // 页面展示动画
     @keyframes show
         0%
-            transform translateY(2em)
+            transform translateY(1em)
         100%
             transform translateY(0em)
     // 页面内部小卡片展示动画
     @keyframes inner-show
         0%
-            transform translateY(0.5em)
+            transform translateY(0.2em)
         100%
             transform translateY(0em)
     // 题目标题，讨论标题展示动画
     @keyframes title-show
         0%
-            transform translateX(-0.5em)
+            transform translateX(-0.2em)
         100%
             transform translateX(0m)
     // 输入框选中动画
@@ -460,9 +461,19 @@ mdeditor-patch()
     *
         word-wrap break-word
         word-break break-all
-    // 全局设置边框
-    // 除了按钮，输入框光标，分数线，难度选择，加载中动画，专栏查询框，输入框，讨论版的名字 tag，一级标题二级标题三级标题分割线，输入框
-    *:not(button,.CodeMirror-cursor,.frac-line,.combo-wrapper > .text,.cm-cursor,div[data-v-bbdab89a][style*="border-width: 4px;"],span[data-v-c83b85a7][data-v-79cbc3ff],.refined-input,input,h1,h2,h3,hr,blockquote,textarea,.row,.sub-header,.swal2-icon *,.swal2-icon)
+    .row
+    .header
+    .dropdown
+    .dropdown .center
+    .cs-main
+    .cs-header
+    .cs-footer
+    .cs-editor
+    .mp-editor-container
+    .mp-editor-ground
+    .mp-editor-zone
+    .card
+    .l-card
         border-color line_color !important
     // 设置全局背景
     body
@@ -794,11 +805,16 @@ mdeditor-patch()
     .dropdown.shown div .user-info *
         font-family font-stack !important
     // 洛谷日爆样式
-    .page .page-bottom
+    .page:has(.page-bottom)
         margin-top 1em
         padding-bottom 2em
+        padding-top 2em
         border-radius 6px
         acrylic-bg()
+        max-width 50vw
+        & *
+            max-width 50vw
+            color text_color
     // 翻页条
     .page-bar
         background transparent !important
@@ -819,16 +835,40 @@ mdeditor-patch()
     .modal p
         color text_color
         font-family font-stack !important
-    
+
      // 主站
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article|problem/solution/|ranking|discuss)).*")
-    // 顶栏出现动画
-    @keyframes top-show
-        0%
-            transform translateY(-120%)
-        100%
-            transform translateY(0)
-
+    body:not(body:has(.user-nav)):after
+    body:not(body:has(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"])):after
+        content ""
+        background main-background
+        background-repeat no-repeat
+        background-size cover
+        background-position center
+        background-attachment fixed
+        z-index 998244353
+        position fixed
+        top 0
+        bottom 0
+        left 0
+        right 0
+    body:has(.user-nav):after
+    body:not(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"]):after
+        opacity 0
+        transition all 1s ease-out .2s
+        content ""
+        background main-background
+        background-repeat no-repeat
+        background-size cover
+        background-position center
+        background-attachment fixed
+        z-index -998244353
+        position fixed
+        top 0
+        bottom 0
+        left 0
+        right 0
+        pointer-events none
     /* 页面布局 */
     // 覆盖掉洛谷主题自带的背景
     // 这几个排除是 mask
@@ -837,10 +877,6 @@ mdeditor-patch()
         filter none !important
     // sweetalert2样式
     swal-patch()
-    // 顶栏动画
-    .user-nav
-        if animations
-            animation top-show .5s ease-out
     // 顶栏样式
     body > .header
         acrylic-bg() if header-acrylic
@@ -1026,7 +1062,7 @@ mdeditor-patch()
                         acrylic()
                 else
                         background board_color !important
-        
+
     .card[data-v-6febb0e8]
         border-bottom #fff0 !important
     // 提交代码
@@ -1384,8 +1420,15 @@ mdeditor-patch()
         border-radius 5px
     .light-black
         color sec_text_color !important
+    [currenttemplate="UserShow"] .select-header-tiny ul li:not(.selected) span
+        color sec_text_color !important
+    [currenttemplate="UserShow"] .select-header-tiny ul li.selected span
+        color text_color !important
 //讨论区
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/(discuss|article)).*")
+    .header-layout h1.lfe-h1
+        if animations
+            animation 1s ease-in-out 0s title-show
     // 回复样式（解决回复盖住了主页卡片）
     .card:not(.reply-editor):hover
         z-index 6
@@ -1648,6 +1691,37 @@ mdeditor-patch()
             animation-timeline scroll()
 // 洛谷新 UI
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/(article|problem/solution|ranking|).*$")
+    body:not(body:has(> .dropdown)):after
+    body:not(body:has(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"])):after
+        content ""
+        background main-background
+        background-repeat no-repeat
+        background-size cover
+        background-position center
+        background-attachment fixed
+        z-index 998244353
+        position fixed
+        top 0
+        bottom 0
+        left 0
+        right 0
+    body:has(> .dropdown):after
+    body:not(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"]):after
+        opacity 0
+        transition all 1s ease-out .2s
+        content ""
+        background main-background
+        background-repeat no-repeat
+        background-size cover
+        background-position center
+        background-attachment fixed
+        z-index -998244353
+        position fixed
+        top 0
+        bottom 0
+        left 0
+        right 0
+        pointer-events none
     // sweetalert2样式
     swal-patch()
     // 侧栏样式和个人卡片样式
@@ -1780,6 +1854,8 @@ mdeditor-patch()
         border-color transparent !important
         & > .east > svg
             padding-left 5pt
+    h3.lfe-h3
+        color text_color
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/ranking\?.*$")
     // 咕值列表大大大大大大大大大大大改动（约等于重构）
     .list-wrap.table

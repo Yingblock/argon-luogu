@@ -1,7 +1,7 @@
 
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20250113.17.01
+@version              20250115.14.46
 @namespace            https://userstyles.world/style/18510/argon-luogu-dev
 @description          洛谷美化样式。
 @author               d0j1a1701
@@ -835,40 +835,13 @@ mdeditor-patch()
     .modal p
         color text_color
         font-family font-stack !important
-
+    div#p.O
+        acrylic()
+        position: relative
+        padding: 2em 2em 0.5em 2em
+        color text_color
      // 主站
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article|problem/solution/|ranking|discuss)).*")
-    body:not(body:has(.user-nav)):after
-    body:not(body:has(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"])):after
-        content ""
-        background main-background
-        background-repeat no-repeat
-        background-size cover
-        background-position center
-        background-attachment fixed
-        z-index 998244353
-        position fixed
-        top 0
-        bottom 0
-        left 0
-        right 0
-    body:has(.user-nav):after
-    body:not(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"]):after
-        opacity 0
-        transition all 1s ease-out .2s
-        content ""
-        background main-background
-        background-repeat no-repeat
-        background-size cover
-        background-position center
-        background-attachment fixed
-        z-index -998244353
-        position fixed
-        top 0
-        bottom 0
-        left 0
-        right 0
-        pointer-events none
     /* 页面布局 */
     // 覆盖掉洛谷主题自带的背景
     // 这几个排除是 mask
@@ -935,7 +908,7 @@ mdeditor-patch()
     // 页面主体（所有卡片的容器）
     main.lfe-body
         background none !important
-    .selected > span
+    .selected:not(.tag) > span
         color sec_text_color !important
     // 首页
     #app-old
@@ -1424,6 +1397,10 @@ mdeditor-patch()
         color sec_text_color !important
     [currenttemplate="UserShow"] .select-header-tiny ul li.selected span
         color text_color !important
+    .delete svg
+        color #fff
+    .comment
+        color sec_text_color !important
 //讨论区
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/(discuss|article)).*")
     .header-layout h1.lfe-h1
@@ -1691,37 +1668,6 @@ mdeditor-patch()
             animation-timeline scroll()
 // 洛谷新 UI
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/(article|problem/solution|ranking|).*$")
-    body:not(body:has(> .dropdown)):after
-    body:not(body:has(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"])):after
-        content ""
-        background main-background
-        background-repeat no-repeat
-        background-size cover
-        background-position center
-        background-attachment fixed
-        z-index 998244353
-        position fixed
-        top 0
-        bottom 0
-        left 0
-        right 0
-    body:has(> .dropdown):after
-    body:not(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"]):after
-        opacity 0
-        transition all 1s ease-out .2s
-        content ""
-        background main-background
-        background-repeat no-repeat
-        background-size cover
-        background-position center
-        background-attachment fixed
-        z-index -998244353
-        position fixed
-        top 0
-        bottom 0
-        left 0
-        right 0
-        pointer-events none
     // sweetalert2样式
     swal-patch()
     // 侧栏样式和个人卡片样式

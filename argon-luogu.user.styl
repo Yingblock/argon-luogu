@@ -1,7 +1,7 @@
 
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20250117.11.41
+@version              20250117.11.45
 @namespace            https://userstyles.world/style/18510/argon-luogu-dev
 @description          洛谷美化样式。
 @author               d0j1a1701
@@ -834,7 +834,11 @@ mdeditor-patch()
     .modal p
         color text_color
         font-family font-stack !important
-
+    div#p.O
+        acrylic()
+        position: relative
+        padding: 2em 2em 0.5em 2em
+        color text_color
      // 主站
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article|problem/solution/|ranking|discuss)).*")
     /* 页面布局 */
@@ -903,7 +907,7 @@ mdeditor-patch()
     // 页面主体（所有卡片的容器）
     main.lfe-body
         background none !important
-    .selected > span
+    .selected:not(.tag) > span
         color sec_text_color !important
     // 首页
     #app-old
@@ -1392,6 +1396,10 @@ mdeditor-patch()
         color sec_text_color !important
     [currenttemplate="UserShow"] .select-header-tiny ul li.selected span
         color text_color !important
+    .delete svg
+        color #fff
+    .comment
+        color sec_text_color !important
 //讨论区
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/(discuss|article)).*")
     .header-layout h1.lfe-h1

@@ -1,7 +1,7 @@
 
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20250113.17.01
+@version              20250117.11.41
 @namespace            https://userstyles.world/style/18510/argon-luogu-dev
 @description          洛谷美化样式。
 @author               d0j1a1701
@@ -19,7 +19,6 @@
 @var                  checkbox remove-ad "去除洛谷广告" 0
 @var                  checkbox animations "动画" 1
 @var                  checkbox prose-bar "阅读进度条" 1
-@var                  checkbox remove-reply-container "隐藏讨论区「编辑回复」栏" 0
 @var                  checkbox lock-account "纯享壁纸版锁定账户 " 0
 ==/UserStyle== */
 
@@ -838,37 +837,6 @@ mdeditor-patch()
 
      // 主站
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article|problem/solution/|ranking|discuss)).*")
-    body:not(body:has(.user-nav)):after
-    body:not(body:has(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"])):after
-        content ""
-        background main-background
-        background-repeat no-repeat
-        background-size cover
-        background-position center
-        background-attachment fixed
-        z-index 998244353
-        position fixed
-        top 0
-        bottom 0
-        left 0
-        right 0
-    body:has(.user-nav):after
-    body:not(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"]):after
-        opacity 0
-        transition all 1s ease-out .2s
-        content ""
-        background main-background
-        background-repeat no-repeat
-        background-size cover
-        background-position center
-        background-attachment fixed
-        z-index -998244353
-        position fixed
-        top 0
-        bottom 0
-        left 0
-        right 0
-        pointer-events none
     /* 页面布局 */
     // 覆盖掉洛谷主题自带的背景
     // 这几个排除是 mask
@@ -1497,9 +1465,6 @@ mdeditor-patch()
         color subtitle_color // sec_text_color 太浅看不清
     .lfe-h3.name
         color text_color
-    if remove-reply-container
-        .edit-reply-container:not(.in-position)
-            display none !important
     .expand .expand
             z-index 100
             position relative
@@ -1691,37 +1656,6 @@ mdeditor-patch()
             animation-timeline scroll()
 // 洛谷新 UI
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/(article|problem/solution|ranking|).*$")
-    body:not(body:has(> .dropdown)):after
-    body:not(body:has(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"])):after
-        content ""
-        background main-background
-        background-repeat no-repeat
-        background-size cover
-        background-position center
-        background-attachment fixed
-        z-index 998244353
-        position fixed
-        top 0
-        bottom 0
-        left 0
-        right 0
-    body:has(> .dropdown):after
-    body:not(img[src="https://blocksrc.haplat.net/_bot_sbu/sbu-pic.gif"]):after
-        opacity 0
-        transition all 1s ease-out .2s
-        content ""
-        background main-background
-        background-repeat no-repeat
-        background-size cover
-        background-position center
-        background-attachment fixed
-        z-index -998244353
-        position fixed
-        top 0
-        bottom 0
-        left 0
-        right 0
-        pointer-events none
     // sweetalert2样式
     swal-patch()
     // 侧栏样式和个人卡片样式

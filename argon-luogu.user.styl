@@ -1,7 +1,7 @@
 
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20250117.11.45
+@version              20250308.15.07
 @namespace            https://userstyles.world/style/18510/argon-luogu-dev
 @description          洛谷美化样式。
 @author               d0j1a1701
@@ -318,7 +318,7 @@ swal-patch()
 cseditor-patch()
     .cs-main,
     .cs-header
-        font-family font-stack-codeblock
+        font-family font-stack-codeblock !important
         background rgba(acrylic_bg_color,1) !important
     .cs-toolbar
         & > div > span > span > span > svg
@@ -373,6 +373,42 @@ cseditor-patch()
         }
     .cs-footer
         acrylic-bg()
+    
+    .ide-toolbar
+        border-color line_color
+        background-color: #2B2B2B !important;
+        color text_color
+    .ide-textarea.lfe-code
+        border-color transparent !important
+        background-color #2B2B2B !important
+        color post_text_color !important
+        font-family font-stack-codeblock
+    .panel-divider
+        background-color line_color
+    .cm-gutters *
+    .cm-gutters
+        border-color line_color
+        background: #2B2B2B !important;
+        
+    .cm-content
+        font-family font-stack-codeblock !important
+        border-color line_color
+        background: #2B2B2B !important;
+        span.ͼ5
+        span.ͼb
+            color rgb(184,151,226)
+        span.ͼf
+        span.ͼe
+            color rgb(133,180,132)
+        .cm-line
+            color #ffffff
+        span.ͼi
+            color rgb(235,213,166)
+        span.ͼd
+            color rgb(228,163,124)
+        span.ͼg
+            color rgb(121,159,222)
+            
 mdeditor-patch()
     #app:has(.cs-full-screen) > *:not(.main-container)
     .main-container:has(.cs-full-screen) footer
@@ -530,7 +566,7 @@ mdeditor-patch()
         background transparent !important
         border-color transparent !important
     // 输入框样式修改
-    textarea
+    textarea:not(.ide-textarea.lfe-code)
         color post_text_color !important
         font-family font-stack
         background none !important
@@ -575,7 +611,7 @@ mdeditor-patch()
         color sec_text_color !important
     // 删除广告
     if remove-ad
-        .side:not(.card.wrapper.padding-none > .side) > *:last-child:not(.l-card,.card)
+        .side:not(.card.wrapper.padding-none > .side) > div:has(.svg-inline--fa.fa-rectangle-ad)
             display none
     // exlg 代码块
     .exlg-code-title
@@ -839,8 +875,11 @@ mdeditor-patch()
         position: relative
         padding: 2em 2em 0.5em 2em
         color text_color
-     // 主站
-@-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article|problem/solution/|ranking|discuss)).*")
+    .result-count
+    .result-count > *
+        color text_color !important
+     // 旧 UI
+@-moz-document regexp("^(https?://www.luogu.com(.cn)?/)(?!(article|problem/solution/|ranking|discuss|problem/[A-Z0-9]|user/setting)).*")
     /* 页面布局 */
     // 覆盖掉洛谷主题自带的背景
     // 这几个排除是 mask
@@ -1402,7 +1441,7 @@ mdeditor-patch()
         color sec_text_color !important
 //讨论区
 @-moz-document regexp("^(https?://www.luogu.com(.cn)?/(discuss|article)).*")
-    .header-layout h1.lfe-h1
+    .top-bar h1.lfe-h1
         if animations
             animation 1s ease-in-out 0s title-show
     // 回复样式（解决回复盖住了主页卡片）
@@ -1663,7 +1702,7 @@ mdeditor-patch()
             animation bar 5s linear
             animation-timeline scroll()
 // 洛谷新 UI
-@-moz-document regexp("^https?://www.luogu.com(.cn)?/(article|problem/solution|ranking|).*$")
+@-moz-document regexp("^https?://www.luogu.com(.cn)?/(article|problem/solution|ranking|problem|user/setting|discuss).*$")
     // sweetalert2样式
     swal-patch()
     // 侧栏样式和个人卡片样式
@@ -1747,7 +1786,7 @@ mdeditor-patch()
             height 2em
             padding 0pt 0pt 0pt 0pt !important
     // 把每一篇题解卡片化
-    .body > div[data-v-83fd4045] .list-wrap .row-wrap .row[data-v-83fd4045]:not(.article-comment div[data-v-83fd4045] .list-wrap .row-wrap .row[data-v-83fd4045])
+    .row:has(.solution-article)
             if anymore-acrylic
                     acrylic-bg(0.6,2px)
             else
@@ -1798,6 +1837,39 @@ mdeditor-patch()
             padding-left 5pt
     h3.lfe-h3
         color text_color
+    div.problem
+        acrylic-bg()
+        color text_color
+        & > h1
+            color #ffffff
+    .panel-layout.layout-horizontal.ide-container
+        background-color: transparent
+    .panel.panel-b
+        acrylic-bg()
+        mdeditor-patch()
+    .panel-divider
+        background-color line_color !important
+    .ide-container
+        height calc(100vh - 3.5rem) !important
+    .main-container
+        position relative
+        overflow hidden
+    .svg-inline--fa.fa-grid-2.indicator
+        color text_color
+    .row.title > a
+        color #ffffff !important if dark-mode
+    .row  .content
+        color text_color
+    .lfe-h4
+        color text_color
+    .reply-item .meta
+        background-color transparent !important
+    .solution-article a[href*="/article/"]
+        color sec_text_color !important
+    .btn-float-open
+        background-color board_color !important
+        color text_color
+        
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/ranking\?.*$")
     // 咕值列表大大大大大大大大大大大改动（约等于重构）
     .list-wrap.table

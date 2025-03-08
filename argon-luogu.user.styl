@@ -392,6 +392,7 @@ cseditor-patch()
         
     .cm-content
         font-family font-stack-codeblock !important
+    .cm-editor
         border-color line_color
         background: #2B2B2B !important;
         span.ͼ5
@@ -409,6 +410,8 @@ cseditor-patch()
         span.ͼg
             color rgb(121,159,222)
     .cm-cursor { border-left: 1px solid #A9B7C6!important; }
+    .cm-selectionLayer *
+        background: #6c6c6c !important;
             
 mdeditor-patch()
     #app:has(.cs-full-screen) > *:not(.main-container)

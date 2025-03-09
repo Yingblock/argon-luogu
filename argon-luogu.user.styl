@@ -1,7 +1,7 @@
 
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20250308.15.07
+@version              20250309.09.21
 @namespace            https://userstyles.world/style/18510/argon-luogu-dev
 @description          洛谷美化样式。
 @author               d0j1a1701
@@ -387,7 +387,7 @@ cseditor-patch()
         background-color line_color
     .cm-gutters *
     .cm-gutters
-        border-color line_color
+        border-color line_color !important
         background: #2B2B2B !important;
         
     .cm-content
@@ -1873,6 +1873,8 @@ mdeditor-patch()
     .btn-float-open
         background-color board_color !important
         color text_color
+    .light-black
+        color text_color !important
         
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/ranking\?.*$")
     // 咕值列表大大大大大大大大大大大改动（约等于重构）

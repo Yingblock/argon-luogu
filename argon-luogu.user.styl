@@ -1,7 +1,7 @@
 
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20250309.09.21
+@version              20250317.12.20
 @namespace            https://userstyles.world/style/18510/argon-luogu-dev
 @description          洛谷美化样式。
 @author               d0j1a1701
@@ -604,13 +604,17 @@ mdeditor-patch()
 
 
     // 选择框掉出来的下拉框
-    .dropdown:not([style^="--dropdown-z-index: 1005;"])
+    .dropdown:not([style^="--dropdown-z-index: 1005;"],:has(.setting-dropdown))
         acrylic()
         color sec_text_color !important
         border none !important
         font-family font-stack
         & > ul > li:hover
             background button_hover_bg_color !important
+    // 不得不称赞这个收缩导航栏简直是 Hyprland 玩家福音，终于可以有更大的看题空间了 qwq
+    .setting-dropdown
+        acrylic-bg()
+        color text_color
     .user-stat-data > div > div > span
         color sec_text_color !important
     // 删除广告
@@ -1261,7 +1265,8 @@ mdeditor-patch()
         color post_link_color // 假装这是个链接...
 
     // ⚡系统维护，该内容暂不可见⚡
-    div[data-v-fe28b16c][data-v-f9624136][style*="border: 1px solid rgb(225"] // 妈的这 Styl 编译器什么垃圾
+    div[style="background-color: rgb(255\, 235\, 236); border-radius: 5px; border: 1px solid rgb(225\, 50\, 56); padding: 1em; font-style: italic;"] // 妈的这 Styl 编译器什么垃圾
+    // 不要再生气了拉改好了
         display none !important
     .introduction[data-v-e5ad98f0][style="display: none;"]
         display block !important

@@ -1,15 +1,15 @@
 
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20250329.15.37
+@version              20250527.19.53
 @namespace            https://userstyles.world/style/18510/argon-luogu-dev
 @description          洛谷美化样式。
 @author               d0j1a1701
 @license              MIT
 @preprocessor         stylus
 @var                  checkbox dark-mode "深色模式" 1
-@var                  text font-stack    "全局字体" "'Noto Sans SC'"
-@var                  text font-stack-codeblock "代码块字体" "'Fira Code', 'Source Code Pro', 'Noto Sans SC'"
+@var                  text font-stack    "全局字体" "'Inter','Noto Sans SC'"
+@var                  text font-stack-codeblock "代码块字体" "'Fira Code', 'JetBrains Mono', 'Noto Sans SC'"
 @var                  text main-background "自定义背景" "url(https://cdn.luogu.com.cn/upload/image_hosting/7ludxt0p.png)"
 @var                  checkbox header-acrylic "顶栏亚克力效果" 1
 @var                  checkbox nav-acrylic "侧栏亚克力效果" 1
@@ -22,442 +22,494 @@
 @var                  checkbox lock-account "纯享壁纸版锁定账户 " 0
 ==/UserStyle== */
 
-//! 字体导入 ---------
 
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Noto+Sans+SC:wght@100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+@-moz-document regexp("^(https?://www.luogu.com(.cn)?/).*")
+    @import url('https://fonts.googleapis.com/css2?         family=Fira+Code:wght@300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Noto+Sans+SC:wght@100..900&display=swap')
+    //! 字体导入 ---------
 
-//! 自定义配置部分 ---------
 
-// 调色板
-if dark-mode
-    // 全局颜色
-    body_bg_color = #181c27 // 全局背景色
-    navbar_bg_color = #1f3144 // 菜单栏背景色
-    navbar_text_color = #d0d0d0 // 菜单栏文字色
-    subtitle_color = #d0d0d0 // 副标题颜色（面板外）
-    text_color = #c4c6c9 // 全局字体色
-    sec_text_color = #a7a9ad // 次级字体色（摘要、简介等位置）
-    time_text_color = rgba(126,241,147,0.62) //主页时间字体色
-    board_color = #252d38 // 面板背景色
-    post_text_color = #c4c6c9 // 面板字体色
-    post_heading_color = #c4c6c9 // 面板标题色（h1, h2, h3...）
-    post_link_color = #1589e9 // 超链接字体色
-    link_hover_color = #30a9de // 超链接悬浮字体色
-    link_hover_bg_color = transparent // 超链接悬浮背景色
-    line_color = #435266 // 分割线颜色
-    scrollbar_track_color = #181c27 // 滚动槽颜色
-    scrollbar_thumb_color = #687582 // 滚动条颜色
-    scrollbar_hover_color = #5e72e4 // 滚动条悬浮色
-    button_bg_color = transparent // 按钮背景色
-    button_hover_bg_color = #46647e // 按钮悬浮色
-    selection_bg_color = #9696c84d // 选中背景色
-    acrylic_bg_color = #000000 // 亚克力背景色
-    inlinecode_bg_color = #636e7b66 // 行内代码背景色
-    // 代码高亮配色：
-    codeblock_bg_color = #0d1117
-    hljs_base_color = #c9d1d9
-    hljs_keyword_color = #ff7b72
-    hljs_function_color = #d2a8ff
-    hljs_variable_color = #79c0ff
-    hljs_string_color = #a5d6ff
-    hljs_symbol_color = #ffa657
-    hljs_comment_color = #8b949e
-    hljs_tag_color = #7ee787
-    hljs_subst_color = #c9d1d9
-    hljs_section_color = #1f6feb
-    hljs_bullet_color = #f2cc60
-    hljs_emphasis_color = #c9d1d9
-    hljs_strong_color = #c9d1d9
-    hljs_addition_color = #aff5b4
-    hljs_addition_bg_color = #033a16
-    hljs_deletion_color = #ffdcd7
-    hljs_deletion_bg_color = #67060c
-    text_area_color = #eaecef
+    //! 自定义配置部分 ---------
 
-else
-    body_bg_color = #eee
-    navbar_bg_color = #eeeeee
-    navbar_text_color = #3c4858
-    subtitle_color = #fff
-    text_color = #3c4858
-    time_text_color = rgba(5, 67, 16, 0.79)
-    board_color = #fff
-    post_text_color = #2c3e50
-    sec_text_color = #718096
-    post_heading_color = #1a202c
-    post_link_color = #0366d6
-    link_hover_color = #30a9de
-    link_hover_bg_color = transparent
-    line_color = #eaecef
-    scrollbar_track_color = #eeeeee
-    scrollbar_thumb_color = #c4c6c9
-    scrollbar_hover_color = #a6a6a6
-    button_hover_bg_color = #f2f3f5
-    button_bg_color = transparent
-    selection_bg_color = #95bce3
-    acrylic_bg_color = #ffffff
-    text_area_color = #435266
-// ! 配置部分结束 ---------
+    // 调色板
+    if dark-mode
+        // 全局颜色
+        body_bg_color = #181c27 // 全局背景色
+        navbar_bg_color = #1f3144 // 菜单栏背景色
+        navbar_text_color = #d0d0d0 // 菜单栏文字色
+        subtitle_color = #d0d0d0 // 副标题颜色（面板外）
+        text_color = #c4c6c9 // 全局字体色
+        sec_text_color = #a7a9ad // 次级字体色（摘要、简介等位置）
+        time_text_color = rgba(126,241,147,0.62) //主页时间字体色
+        board_color = #252d38 // 面板背景色
+        post_text_color = #c4c6c9 // 面板字体色
+        post_heading_color = #c4c6c9 // 面板标题色（h1, h2, h3...）
+        post_link_color = #1589e9 // 超链接字体色
+        link_hover_color = #30a9de // 超链接悬浮字体色
+        link_hover_bg_color = transparent // 超链接悬浮背景色
+        line_color = #435266 // 分割线颜色
+        scrollbar_track_color = #181c27 // 滚动槽颜色
+        scrollbar_thumb_color = #687582 // 滚动条颜色
+        scrollbar_hover_color = #5e72e4 // 滚动条悬浮色
+        button_bg_color = transparent // 按钮背景色
+        button_hover_bg_color = #46647e // 按钮悬浮色
+        selection_bg_color = #9696c84d // 选中背景色
+        acrylic_bg_color = #000000 // 亚克力背景色
+        inlinecode_bg_color = #636e7b66 // 行内代码背景色
+        // 代码高亮配色：
+        codeblock_bg_color = #0d1117
+        hljs_base_color = #c9d1d9
+        hljs_keyword_color = #ff7b72
+        hljs_function_color = #d2a8ff
+        hljs_variable_color = #79c0ff
+        hljs_string_color = #a5d6ff
+        hljs_symbol_color = #ffa657
+        hljs_comment_color = #8b949e
+        hljs_tag_color = #7ee787
+        hljs_subst_color = #c9d1d9
+        hljs_section_color = #1f6feb
+        hljs_bullet_color = #f2cc60
+        hljs_emphasis_color = #c9d1d9
+        hljs_strong_color = #c9d1d9
+        hljs_addition_color = #aff5b4
+        hljs_addition_bg_color = #033a16
+        hljs_deletion_color = #ffdcd7
+        hljs_deletion_bg_color = #67060c
+        text_area_color = #eaecef
 
-main-background = body_bg_color unless main-background
+    else
+        body_bg_color = #eee
+        navbar_bg_color = #eeeeee
+        navbar_text_color = #3c4858
+        subtitle_color = #fff
+        text_color = #3c4858
+        time_text_color = rgba(5, 67, 16, 0.79)
+        board_color = #fff
+        post_text_color = #2c3e50
+        sec_text_color = #718096
+        post_heading_color = #1a202c
+        post_link_color = #0366d6
+        link_hover_color = #30a9de
+        link_hover_bg_color = transparent
+        line_color = #eaecef
+        scrollbar_track_color = #eeeeee
+        scrollbar_thumb_color = #c4c6c9
+        scrollbar_hover_color = #a6a6a6
+        button_hover_bg_color = #f2f3f5
+        button_bg_color = transparent
+        selection_bg_color = #95bce3
+        acrylic_bg_color = #ffffff
+        text_area_color = #435266
+    // ! 配置部分结束 ---------
 
-// d0j1a_1701 最爱的亚克力材质
-// 基于伪元素的亚克力实现，不会造成层叠混乱
-acrylic(arc-opacity=0.5,blur-radius=10px,no_shadow=false)
-    background none !important
-    &:before
+    main-background = body_bg_color unless main-background
+
+    // d0j1a_1701 最爱的亚克力材质
+    // 基于伪元素的亚克力实现，不会造成层叠混乱
+    acrylic(arc-opacity=0.5,blur-radius=10px,no_shadow=false)
+        background none !important
+        &:before
+            acr-bgcolor = rgba(acrylic_bg_color, arc-opacity)
+            background acr-bgcolor !important
+            backdrop-filter blur(blur-radius) !important unless blur-radius == 0
+            box-shadow    0 1px    3px    rgba(0, 0, 0, .01),
+                        0 1px    8px        rgba(0, 0, 0, 0.2) unless no_shadow !important
+            content    ""
+            border-radius @border-radius if @border-radius
+            position absolute
+            pointer-events none
+            z-index -1
+            top 0
+            left 0
+            right 0
+            bottom 0
+
+    // https://stackoverflow.com/questions/44522299/css-only-acrylic-material-from-fluent-design-system
+    // 直接修改背景的亚克力实现，不需要修改 z-index，不会对 border-radius 造成影响，但可能造成层叠混乱
+    acrylic-bg(arc-opacity=0.5,blur-radius=10px,no_shadow=false)
         acr-bgcolor = rgba(acrylic_bg_color, arc-opacity)
         background acr-bgcolor !important
         backdrop-filter blur(blur-radius) !important unless blur-radius == 0
-        box-shadow    0 1px    3px    rgba(0, 0, 0, .01),
+        box-shadow    0 1px    3px    rgba(0, 0, 0, 0.01),
                     0 1px    8px        rgba(0, 0, 0, 0.2) unless no_shadow !important
-        content    ""
-        border-radius @border-radius if @border-radius
-        position absolute
-        pointer-events none
-        z-index -1
-        top 0
-        left 0
-        right 0
-        bottom 0
+    // 修改 Markdown 渲染内容样式
+    markdown-patch()
+        .marked
+            a
+                color post_link_color
 
-// https://stackoverflow.com/questions/44522299/css-only-acrylic-material-from-fluent-design-system
-// 直接修改背景的亚克力实现，不需要修改 z-index，不会对 border-radius 造成影响，但可能造成层叠混乱
-acrylic-bg(arc-opacity=0.5,blur-radius=10px,no_shadow=false)
-    acr-bgcolor = rgba(acrylic_bg_color, arc-opacity)
-    background acr-bgcolor !important
-    backdrop-filter blur(blur-radius) !important unless blur-radius == 0
-    box-shadow    0 1px    3px    rgba(0, 0, 0, 0.01),
-                0 1px    8px        rgba(0, 0, 0, 0.2) unless no_shadow !important
-// 修改 Markdown 渲染内容样式
-markdown-patch()
-    .marked
-        a
-            color post_link_color
+            code // 内联代码
+                background #fff0 !important
+                border none !important
+                            background codeblock_bg_color !important
+                border-radius 5px
+                color hljs_base_color !important
+                box-shadow none !important
+                .hljs-doctag,
+                .hljs-keyword,
+                .hljs-meta .hljs-keyword,
+                .hljs-template-tag,
+                .hljs-template-variable,
+                .hljs-type,
+                .hljs-variable.language_
+                    color hljs_keyword_color if hljs_keyword_color
+                .hljs-title,
+                .hljs-title.class_,
+                .hljs-title.class_.inherited__,
+                .hljs-title.function_
+                    color hljs_function_color if hljs_function_color
+                .hljs-attr,
+                .hljs-attribute,
+                .hljs-literal,
+                .hljs-meta,
+                .hljs-number,
+                .hljs-operator,
+                .hljs-selector-attr,
+                .hljs-selector-class,
+                .hljs-selector-id,
+                .hljs-variable
+                    color hljs_variable_color if hljs_variable_color
+                .hljs-meta .hljs-string,
+                .hljs-regexp,
+                .hljs-string
+                    color hljs_string_color if hljs_string_color
+                .hljs-built_in,
+                .hljs-symbol
+                    color hljs_symbol_color if hljs_symbol_color
+                .hljs-code,
+                .hljs-comment,
+                .hljs-formula
+                    color hljs_comment_color if hljs_comment_color
+                .hljs-name,
+                .hljs-quote,
+                .hljs-selector-pseudo,
+                .hljs-selector-tag
+                    color hljs_tag_color if hljs_tag_color
+                .hljs-subst
+                    color hljs_subst_color if hljs_subst_color
+                .hljs-section
+                    color hljs_section_color if hljs_section_color
+                    font-weight 700
+                .hljs-bullet
+                    color hljs_bullet_color if hljs_bullet_color
+                .hljs-emphasis
+                    color hljs_emphasis_color if hljs_emphasis_color
+                    font-style italic
+                .hljs-strong
+                    color hljs_strong_color if hljs_strong_color
+                    font-weight 700
+                .hljs-addition
+                    color hljs_addition_color if hljs_addition_color
+                    background-color hljs_addition_bg_color if hljs_addition_bg_color
+                .hljs-deletion
+                    color hljs_deletion_color if hljs_deletion_color
+                    background-color hljs_deletion_bg_color if hljs_deletion_bg_color
+            pre
+                &[exlg-copy-code-block]
+                    border-top-left-radius: 0 !important
+                    border-top-right-radius: 0 !important
+                    border-top: none !important
+                background codeblock_bg_color !important
+                border none
+                border-radius 5px
+                margin-bottom 10px
+        // 标签样式更改
+        h1, h2, h3, h4, h5, h6
+            font-weight 600 !important
+            color post_heading_color !important
 
-        code // 内联代码
-            background #fff0 !important
-            border none !important
-                        background codeblock_bg_color !important
-            border-radius 5px
-            color hljs_base_color !important
-            box-shadow none !important
-            .hljs-doctag,
-            .hljs-keyword,
-            .hljs-meta .hljs-keyword,
-            .hljs-template-tag,
-            .hljs-template-variable,
-            .hljs-type,
-            .hljs-variable.language_
-                color hljs_keyword_color if hljs_keyword_color
-            .hljs-title,
-            .hljs-title.class_,
-            .hljs-title.class_.inherited__,
-            .hljs-title.function_
-                color hljs_function_color if hljs_function_color
-            .hljs-attr,
-            .hljs-attribute,
-            .hljs-literal,
-            .hljs-meta,
-            .hljs-number,
-            .hljs-operator,
-            .hljs-selector-attr,
-            .hljs-selector-class,
-            .hljs-selector-id,
-            .hljs-variable
-                color hljs_variable_color if hljs_variable_color
-            .hljs-meta .hljs-string,
-            .hljs-regexp,
-            .hljs-string
-                color hljs_string_color if hljs_string_color
-            .hljs-built_in,
-            .hljs-symbol
-                color hljs_symbol_color if hljs_symbol_color
-            .hljs-code,
-            .hljs-comment,
-            .hljs-formula
-                color hljs_comment_color if hljs_comment_color
-            .hljs-name,
-            .hljs-quote,
-            .hljs-selector-pseudo,
-            .hljs-selector-tag
-                color hljs_tag_color if hljs_tag_color
-            .hljs-subst
-                color hljs_subst_color if hljs_subst_color
-            .hljs-section
-                color hljs_section_color if hljs_section_color
-                font-weight 700
-            .hljs-bullet
-                color hljs_bullet_color if hljs_bullet_color
-            .hljs-emphasis
-                color hljs_emphasis_color if hljs_emphasis_color
-                font-style italic
-            .hljs-strong
-                color hljs_strong_color if hljs_strong_color
-                font-weight 700
-            .hljs-addition
-                color hljs_addition_color if hljs_addition_color
-                background-color hljs_addition_bg_color if hljs_addition_bg_color
-            .hljs-deletion
-                color hljs_deletion_color if hljs_deletion_color
-                background-color hljs_deletion_bg_color if hljs_deletion_bg_color
-        pre
-            &[exlg-copy-code-block]
-                border-top-left-radius: 0 !important
-                border-top-right-radius: 0 !important
-                border-top: none !important
+        hr.horizon
+            background-color line_color !important
+
+        // 代码块
+        pre:not([.mp-editor-container])
             background codeblock_bg_color !important
             border none
             border-radius 5px
             margin-bottom 10px
-    // 标签样式更改
-    h1, h2, h3, h4, h5, h6
-        font-weight 600 !important
-        color post_heading_color !important
+            &[exlg-copy-code-block]
+                    border-top-left-radius: 0 !important
+                    border-top-right-radius: 0 !important
+                    border-top: none !important
 
-    hr.horizon
-        background-color line_color !important
+            code
+                background codeblock_bg_color !important
+                border-radius 5px
+                color hljs_base_color !important
+                box-shadow none !important
 
-    // 代码块
-    pre:not([.mp-editor-container])
-        background codeblock_bg_color !important
-        border none
-        border-radius 5px
-        margin-bottom 10px
-        &[exlg-copy-code-block]
-                border-top-left-radius: 0 !important
-                border-top-right-radius: 0 !important
-                border-top: none !important
+                .hljs-doctag,
+                .hljs-keyword,
+                .hljs-meta .hljs-keyword,
+                .hljs-template-tag,
+                .hljs-template-variable,
+                .hljs-type,
+                .hljs-variable.language_
+                    color hljs_keyword_color if hljs_keyword_color
+                .hljs-title,
+                .hljs-title.class_,
+                .hljs-title.class_.inherited__,
+                .hljs-title.function_
+                    color hljs_function_color if hljs_function_color
+                .hljs-attr,
+                .hljs-attribute,
+                .hljs-literal,
+                .hljs-meta,
+                .hljs-number,
+                .hljs-operator,
+                .hljs-selector-attr,
+                .hljs-selector-class,
+                .hljs-selector-id,
+                .hljs-variable
+                    color hljs_variable_color if hljs_variable_color
+                .hljs-meta .hljs-string,
+                .hljs-regexp,
+                .hljs-string
+                    color hljs_string_color if hljs_string_color
+                .hljs-built_in,
+                .hljs-symbol
+                    color hljs_symbol_color if hljs_symbol_color
+                .hljs-code,
+                .hljs-comment,
+                .hljs-formula
+                    color hljs_comment_color if hljs_comment_color
+                .hljs-name,
+                .hljs-quote,
+                .hljs-selector-pseudo,
+                .hljs-selector-tag
+                    color hljs_tag_color if hljs_tag_color
+                .hljs-subst
+                    color hljs_subst_color if hljs_subst_color
+                .hljs-section
+                    color hljs_section_color if hljs_section_color
+                    font-weight 700
+                .hljs-bullet
+                    color hljs_bullet_color if hljs_bullet_color
+                .hljs-emphasis
+                    color hljs_emphasis_color if hljs_emphasis_color
+                    font-style italic
+                .hljs-strong
+                    color hljs_strong_color if hljs_strong_color
+                    font-weight 700
+                .hljs-addition
+                    color hljs_addition_color if hljs_addition_color
+                    background-color hljs_addition_bg_color if hljs_addition_bg_color
+                .hljs-deletion
+                    color hljs_deletion_color if hljs_deletion_color
+                    background-color hljs_deletion_bg_color if hljs_deletion_bg_color
 
-        code
-            background codeblock_bg_color !important
-            border-radius 5px
-            color hljs_base_color !important
-            box-shadow none !important
+    // 修改 Sweetalert 弹窗样式
+    swal-patch()
+        .swal2-popup
+            &:not([style*='transparent'])
+                acrylic-bg()
+            h1, h2, h3, h4, h5, h6
+                color post_heading_color !important
+            color text_color !important
 
-            .hljs-doctag,
-            .hljs-keyword,
-            .hljs-meta .hljs-keyword,
-            .hljs-template-tag,
-            .hljs-template-variable,
-            .hljs-type,
-            .hljs-variable.language_
-                color hljs_keyword_color if hljs_keyword_color
-            .hljs-title,
-            .hljs-title.class_,
-            .hljs-title.class_.inherited__,
-            .hljs-title.function_
-                color hljs_function_color if hljs_function_color
-            .hljs-attr,
-            .hljs-attribute,
-            .hljs-literal,
-            .hljs-meta,
-            .hljs-number,
-            .hljs-operator,
-            .hljs-selector-attr,
-            .hljs-selector-class,
-            .hljs-selector-id,
-            .hljs-variable
-                color hljs_variable_color if hljs_variable_color
-            .hljs-meta .hljs-string,
-            .hljs-regexp,
-            .hljs-string
-                color hljs_string_color if hljs_string_color
-            .hljs-built_in,
-            .hljs-symbol
-                color hljs_symbol_color if hljs_symbol_color
-            .hljs-code,
-            .hljs-comment,
-            .hljs-formula
-                color hljs_comment_color if hljs_comment_color
-            .hljs-name,
-            .hljs-quote,
-            .hljs-selector-pseudo,
-            .hljs-selector-tag
-                color hljs_tag_color if hljs_tag_color
-            .hljs-subst
-                color hljs_subst_color if hljs_subst_color
-            .hljs-section
-                color hljs_section_color if hljs_section_color
-                font-weight 700
-            .hljs-bullet
-                color hljs_bullet_color if hljs_bullet_color
-            .hljs-emphasis
-                color hljs_emphasis_color if hljs_emphasis_color
-                font-style italic
-            .hljs-strong
-                color hljs_strong_color if hljs_strong_color
-                font-weight 700
-            .hljs-addition
-                color hljs_addition_color if hljs_addition_color
-                background-color hljs_addition_bg_color if hljs_addition_bg_color
-            .hljs-deletion
-                color hljs_deletion_color if hljs_deletion_color
-                background-color hljs_deletion_bg_color if hljs_deletion_bg_color
+        .swal2-content
+            color text_color !important
 
-// 修改 Sweetalert 弹窗样式
-swal-patch()
-    .swal2-popup
-        &:not([style*='transparent'])
-            acrylic-bg()
-        h1, h2, h3, h4, h5, h6
-            color post_heading_color !important
-        color text_color !important
+        // 一些带动画的图标
+        // 选择器只写了一半是因为逆天 Stylus 编译器会把逗号当作选择器
+        .swal2-icon > *[style*='rgba(0'],
+        .swal2-icon > *[style*='rgba(255']
+            background none !important
+        .swal2-success-ring
+            border-color line_color
 
-    .swal2-content
-        color text_color !important
-
-    // 一些带动画的图标
-    // 选择器只写了一半是因为逆天 Stylus 编译器会把逗号当作选择器
-    .swal2-icon > *[style*='rgba(0'],
-    .swal2-icon > *[style*='rgba(255']
-        background none !important
-    .swal2-success-ring
-        border-color line_color
-
-cseditor-patch()
-    .cs-main,
-    .cs-header
-        font-family font-stack-codeblock !important
-        background rgba(acrylic_bg_color,1) !important
-    .cs-toolbar
-        & > div > span > span > span > svg
-            border none !important
-            color text_color
-            &:hover
-                color link_hover_color !important
-                background link_hover_bg_color !important
-    .cs-content
-        background: #2B2B2B !important;
-        .cs-main { background: #2B2B2B !important; color: #A9B7C6!important; }
-        span.ͼ7 {color: #A9B7C6!important;}
-        span.cs-meta { color: #BBB529!important; }
-        span.cs-number { color: #6897BB!important; }
-        span.cs-keyword { color: #CC7832!important; line-height: 1em!important; font-weight: bold!important; }
-        span.cs-def { color: #A9B7C6!important; font-style: italic!important; }
-        span.cs-variable { color: #A9B7C6!important; }
-        span.cs-variable-2 { color: #A9B7C6!important; }
-        span.cs-variable-3 { color: #9876AA!important; }
-        span.cs-type { color: #AABBCC!important; font-weight: bold!important; }
-        span.cs-property { color: #FFC66D!important; }
-        span.cs-operator { color: #A9B7C6!important; }
-        span.cs-string { color: #6A8759!important; }
-        span.cs-string-2 { color: #6A8759!important; }
-        span.ͼ5, span.ͼc { color: #61A151!important; font-style: italic!important; }
-        span.cs-link { color: #CC7832!important; }
-        span.cs-atom { color: #CC7832!important; }
-        span.cs-error { color: #BC3F3C!important; }
-        span.cs-tag { color: #629755!important; font-weight: bold!important; font-style: italic!important; text-decoration: underline!important; }
-        span.cs-attribute { color: #6897bb!important; }
-        span.cs-qualifier { color: #6A8759!important; }
-        span.cs-bracket { color: #A9B7C6!important; }
-        span.cs-builtin { color: #FF9E59!important; }
-        span.cs-special { color: #FF9E59!important; }
-        span.cs-matchhighlight { color: #FFFFFF!important; background-color: rgba(50, 89, 48, .7)!important; font-weight: normal!important;}
-        span.cs-searching { color: #FFFFFF!important; background-color: rgba(61, 115, 59, .7)!important; font-weight: normal!important;}
-        .cm-cursor { border-left: 1px solid #A9B7C6!important; }
-        .cs-activeline-background { background: #323232!important; }
-        .cm-gutters, .cm-activeLineGutter { background: #313335!important; border-right: 1px solid #313335!important; }
-        .cm-guttermarker { color: #FFEE80!important; }
-        .cm-guttermarker-subtle { color: #D0D0D0!important; }
-        .cs-linenumber { color: #606366!important; }
-        .cs-matchingbracket { background-color: #3B514D!important; color: #FFEF28 !important; font-weight: bold!important; }
-        div.cs-selected { background: #214283!important; }
-        .cm-hints {
-            color: #9C9E9E!important;
-            background-color: #3B3E3F !important;
-        }
-        .cm-hints .cm-hint-active {
-            background-color: #494D4E !important;
-            color: #9C9E9E !important;
-        }
-    .cs-footer
-        acrylic-bg()
-    
-    .ide-toolbar
-        border-color line_color
-        background-color: #2B2B2B !important;
-        color text_color
-    .ide-textarea.lfe-code
-        border-color transparent !important
-        background-color #2B2B2B !important
-        color post_text_color !important
-        font-family font-stack-codeblock
-    .panel-divider
-        background-color line_color
-    .cm-gutters *
-    .cm-gutters
-        border-color line_color !important
-        background: #2B2B2B !important;
-        
-    .cm-content
-        font-family font-stack-codeblock !important
-    .cm-editor
-        border-color line_color
-        background: #2B2B2B !important;
-        span.ͼ5
-        span.ͼb
-            color rgb(184,151,226)
-        span.ͼf
-        span.ͼe
-            color rgb(133,180,132)
-        .cm-line
-            color #ffffff
-        span.ͼi
-            color rgb(235,213,166)
-        span.ͼd
-            color rgb(228,163,124)
-        span.ͼg
-            color rgb(121,159,222)
-    .cm-cursor { border-left: 1px solid #A9B7C6!important; }
-    .cm-selectionLayer *
-        background: #6c6c6c !important;
-            
-mdeditor-patch()
-    #app:has(.cs-full-screen) > *:not(.main-container)
-    .main-container:has(.cs-full-screen) footer
-    div:has(.cs-full-screen) + *
-        display none
-    div:has(.cs-full-screen)
-        position fixed !important
-        top 0
-        bottom 0
-        left 0
-        right 0
-    .mp-editor-container
-        .mp-editor-toolbar
-            acrylic-bg()
-            .mp-editor-menu > li > *
+    cseditor-patch()
+        .cs-main,
+        .cs-header
+            font-family font-stack-codeblock !important
+            background rgba(acrylic_bg_color,1) !important
+        .cs-toolbar
+            & > div > span > span > span > svg
                 border none !important
+                color text_color
                 &:hover
                     color link_hover_color !important
                     background link_hover_bg_color !important
-            .mp-divider
-                color line_color !important
-    .ͼ1 .cm-scroller
-        font-family font-stack-codeblock
-    if dark-mode
-        cseditor-patch()
-    // 设置编辑器字体（预览字体跟随全局字体）
-    .cs-editor
-        font-family font-stack-codeblock
-    .CodeMirror
-        font-family font-stack-codeblock
-    .mp-preview-area
-        acrylic-bg()
-        .mp-preview-content
-            color text_color !important
-            markdown-patch()
-            & > pre
-                        padding 5pt 5pt 5pt 5pt
-                        border-radius 5px
-                        border-color line_color
-    main.mobile-body.lfe-body
-        z-index 1 !important
-    .radio-group > *
-        color sec_text_color !important
-/* 全局样式 */
-@-moz-document regexp("^(https?://www.luogu.com(.cn)?/).*")
+        .cs-content
+            background: #2B2B2B !important
+            .cs-main
+                background: #2B2B2B !important
+                color: #A9B7C6 !important
+            span.ͼ7
+                color: #A9B7C6 !important
+            span.cs-meta
+                color: #BBB529 !important
+            span.cs-number
+                color: #6897BB !important
+            span.cs-keyword
+                color: #CC7832 !important
+                line-height: 1em !important
+                font-weight: bold !important
+            span.cs-def
+                color: #A9B7C6 !important
+                font-style: italic !important
+            span.cs-variable
+                color: #A9B7C6 !important
+            span.cs-variable-2
+                color: #A9B7C6 !important
+            span.cs-variable-3
+                color: #9876AA !important
+            span.cs-type
+                color: #AABBCC !important
+                font-weight: bold !important
+            span.cs-property
+                color: #FFC66D !important
+            span.cs-operator
+                color: #A9B7C6 !important
+            span.cs-string
+                color: #6A8759 !important
+            span.cs-string-2
+                color: #6A8759 !important
+            span.ͼ5,
+            span.ͼc
+                color: #61A151 !important
+                font-style: italic !important
+            span.cs-link
+                color: #CC7832 !important
+            span.cs-atom
+                color: #CC7832 !important
+            span.cs-error
+                color: #BC3F3C !important
+            span.cs-tag
+                color: #629755 !important
+                font-weight: bold !important
+                font-style: italic !important
+                text-decoration: underline !important
+            span.cs-attribute 
+                color: #6897bb !important
+            span.cs-qualifier 
+                color: #6A8759 !important
+            span.cs-bracket 
+                color: #A9B7C6 !important
+            span.cs-builtin 
+                color: #FF9E59 !important
+            span.cs-special 
+                color: #FF9E59 !important
+            span.cs-matchhighlight
+                color: #FFFFFF !important
+                background-color: rgba(50, 89, 48, .7) !important
+                font-weight: normal !important
+            span.cs-searching
+                color: #FFFFFF !important
+                background-color: rgba(61, 115, 59, .7) !important
+                font-weight: normal !important
+            .cm-cursor
+                border-left: 1px solid #A9B7C6 !important
+            .cs-activeline-background 
+                background: #323232 !important
+            .cm-gutters,
+            .cm-activeLineGutter 
+                background: #313335 !important
+                border-right: 1px solid #313335 !important
+            .cm-guttermarker
+                color: #FFEE80 !important
+            .cm-guttermarker-subtle
+                color: #D0D0D0 !important
+            .cs-linenumber
+                color: #606366 !important
+            .cs-matchingbracket
+                background-color: #3B514D !important
+                color: #FFEF28 !important
+                font-weight: bold !important
+            div.cs-selected 
+                background: #214283 !important
+            .cm-hints 
+                color: #9C9E9E!important
+                background-color: #3B3E3F !important
+            .cm-hints .cm-hint-active 
+                background-color: #494D4E !important
+                color: #9C9E9E !important
+        .cs-footer
+            acrylic-bg()
+
+        .ide-toolbar
+            border-color line_color
+            background-color: #2B2B2B !important
+            color text_color
+        .ide-textarea.lfe-code
+            border-color transparent !important
+            background-color #2B2B2B !important
+            color post_text_color !important
+            font-family font-stack-codeblock
+        .panel-divider
+            background-color line_color
+        .cm-gutters *
+        .cm-gutters
+            border-color line_color !important
+            background: #2B2B2B !important
+
+        .cm-content
+        .ͼq .cm-content
+            font-family font-stack-codeblock !important
+        .cm-editor
+            border-color line_color
+            background: #2B2B2B !important
+            span.ͼ5
+            span.ͼb
+                color rgb(184,151,226)
+            span.ͼf
+            span.ͼe
+                color rgb(133,180,132)
+            .cm-line
+                color #ffffff
+            span.ͼi
+                color rgb(235,213,166)
+            span.ͼd
+                color rgb(228,163,124)
+            span.ͼg
+                color rgb(121,159,222)
+        .cm-cursor 
+            border-left: 1px solid #A9B7C6!important
+        .cm-selectionLayer *
+            background: #6c6c6c !important
+
+    mdeditor-patch()
+        #app:has(.cs-full-screen) > *:not(.main-container)
+        .main-container:has(.cs-full-screen) footer
+        div:has(.cs-full-screen) + *
+            display none
+        div:has(.cs-full-screen)
+            position fixed !important
+            top 0
+            bottom 0
+            left 0
+            right 0
+        .mp-editor-container
+            .mp-editor-toolbar
+                acrylic-bg()
+                .mp-editor-menu > li > *
+                    border none !important
+                    &:hover
+                        color link_hover_color !important
+                        background link_hover_bg_color !important
+                .mp-divider
+                    color line_color !important
+        .ͼ1 .cm-scroller
+            font-family font-stack-codeblock
+        if dark-mode
+            cseditor-patch()
+        // 设置编辑器字体（预览字体跟随全局字体）
+        .cs-editor
+            font-family font-stack-codeblock
+        .CodeMirror
+            font-family font-stack-codeblock
+        .mp-preview-area
+            acrylic-bg()
+            .mp-preview-content
+                color text_color !important
+                markdown-patch()
+                & > pre
+                            padding 5pt 5pt 5pt 5pt
+                            border-radius 5px
+                            border-color line_color
+        main.mobile-body.lfe-body
+            z-index 1 !important
+        .radio-group > *
+            color sec_text_color !important
     // 页面展示动画
     @keyframes show
         0%
@@ -663,148 +715,171 @@ mdeditor-patch()
         font 14pt/normal font-stack-codeblock !important
     // 提交代码样式
     if dark-mode
-            .ace_gutter {
-                background: #25282c !important;
-                color: #C5C8C6 !important
-            }
-            .ace_print-margin {
-                width: 1px !important;
-                  background: #25282c!important
-            }
-            .ace_editor {
-                background-color: #1D1F21 !important;
+            .ace_gutter
+                background: #25282c !important
+                color: #C5C8C6 
+            .ace_print-margin
+                width: 1px !important
+                background: #25282c!important
+            .ace_editor
+                background-color: #1D1F21 !important
                 color: #C5C8C6!important
-            }
-            .ace_cursor {
+            .ace_cursor
                 color: #AEAFAD!important
-            }
-            .ace_marker-layer .ace_selection {
+            .ace_marker-layer .ace_selection
                 background: #373B41!important
-            }
-            .ace-clouds.ace_multiselect .ace_selection.ace_start {
-                box-shadow: 0 0 3px 0px #1D1F21!important;
-            }
-            .ace_marker-layer .ace_step {
+            .ace-clouds.ace_multiselect .ace_selection.ace_start
+                box-shadow: 0 0 3px 0px #1D1F21!important
+            .ace_marker-layer .ace_step
                 background: rgb(102, 82, 0)!important
-            }
-            .ace_marker-layer .ace_bracket {
-                margin: -1px 0 0 -1px!important;
+            .ace_marker-layer .ace_bracket
+                margin: -1px 0 0 -1px!important
                 border: 1px solid #4B4E55!important
-            }
-            .ace_marker-layer .ace_active-line {
+            .ace_marker-layer .ace_active-line
                 background: #282A2E!important
-            }
-            .ace_gutter-active-line {
+            .ace_gutter-active-line
                 background-color: #282A2E!important
-            }
-            .ace_marker-layer .ace_selected-word {
+            .ace_marker-layer .ace_selected-word
                 border: 1px solid #373B41!important
-            }
-            .ace_invisible {
+            .ace_invisible
                 color: #4B4E55!important
-            }
             .ace_keyword,
             .ace_meta,
             .ace_storage,
             .ace_storage.ace_type,
-            .ace_support.ace_type {
+            .ace_support.ace_type
                 color: #B294BB!important
-            }
-            .ace_keyword.ace_operator {
-                color: #8ABEB7!important!important
-            }
+            .ace_keyword.ace_operator
+                color: #8ABEB7!important
             .ace_constant.ace_character,
             .ace_constant.ace_language,
             .ace_constant.ace_numeric,
             .ace_keyword.ace_other.ace_unit,
             .ace_support.ace_constant,
-            .ace_variable.ace_parameter {
+            .ace_variable.ace_parameter
                 color: #DE935F!important
-            }
-            .ace_constant.ace_other {
+            .ace_constant.ace_other
                 color: #CED1CF!important
-            }
-            .ace_invalid {
-                color: #CED2CF!important;
+            .ace_invalid
+                color: #CED2CF!important
                 background-color: #DF5F5F!important
-            }
-            .ace_invalid.ace_deprecated {
-                color: #CED2CF!important;
+            .ace_invalid.ace_deprecated
+                color: #CED2CF!important
                 background-color: #B798BF!important
-            }
-            .ace_fold {
-                background-color: #81A2BE!important;
+            .ace_fold
+                background-color: #81A2BE!important
                 border-color: #C5C8C6!important
-            }
             .ace_entity.ace_name.ace_function,
             .ace_support.ace_function,
-            .ace_variable {
+            .ace_variable
                 color: #81A2BE!important
-            }
             .ace_support.ace_class,
-            .ace_support.ace_type {
+            .ace_support.ace_type
                 color: #F0C674!important
-            }
             .ace_heading,
             .ace_markup.ace_heading,
-            .ace_string {
+            .ace_string
                 color: #B5BD68!important
-            }
             .ace_entity.ace_name.ace_tag,
             .ace_entity.ace_other.ace_attribute-name,
             .ace_meta.ace_tag,
             .ace_string.ace_regexp,
-            .ace_variable {
+            .ace_variable
                 color: #CC6666!important
-            }
-            .ace_comment {
+            .ace_comment
                 color: #969896!important
-            }
-            .ace_indent-guide {
+            .ace_indent-guide
                 background: url("https://cdn.jsdelivr.net/npm/ace-builds@1.36.2/css/tomorrow_night-1.png") right repeat-y!important
-             }
-            .CodeMirror { background: #2B2B2B !important; color: #A9B7C6!important; }
-            span.cm-header {color: #A9B7C6!important;}
-            span.cm-meta { color: #BBB529!important; }
-            span.cm-number { color: #6897BB!important; }
-            span.cm-keyword { color: #CC7832!important; line-height: 1em!important; font-weight: bold!important; }
-            span.cm-def { color: #A9B7C6!important; font-style: italic!important; }
-            span.cm-variable { color: #A9B7C6!important; }
-            span.cm-variable-2 { color: #A9B7C6!important; }
-            span.cm-variable-3 { color: #9876AA!important; }
-            span.cm-type { color: #AABBCC!important; font-weight: bold!important; }
-            span.cm-property { color: #FFC66D!important; }
-            span.cm-operator { color: #A9B7C6!important; }
-            span.cm-string { color: #6A8759!important; }
-            span.cm-string-2 { color: #6A8759!important; }
-            span.cm-comment { color: #61A151!important; font-style: italic!important; }
-            span.cm-link { color: #CC7832!important; }
-            span.cm-atom { color: #CC7832!important; }
-            span.cm-error { color: #BC3F3C!important; }
-            span.cm-tag { color: #629755!important; font-weight: bold!important; font-style: italic!important; text-decoration: underline!important; }
-            span.cm-attribute { color: #6897bb!important; }
-            span.cm-qualifier { color: #6A8759!important; }
-            span.cm-bracket { color: #A9B7C6!important; }
-            span.cm-builtin { color: #FF9E59!important; }
-            span.cm-special { color: #FF9E59!important; }
-            span.cm-matchhighlight { color: #FFFFFF!important; background-color: rgba(50, 89, 48, .7)!important; font-weight: normal!important;}
-            span.cm-searching { color: #FFFFFF!important; background-color: rgba(61, 115, 59, .7)!important; font-weight: normal!important;}
-            .CodeMirror-cursor { border-left: 1px solid #A9B7C6!important; }
-            .CodeMirror-activeline-background { background: #323232!important; }
-            .CodeMirror-gutters { background: #313335!important; border-right: 1px solid #313335!important; }
-            .CodeMirror-guttermarker { color: #FFEE80!important; }
-            .CodeMirror-guttermarker-subtle { color: #D0D0D0!important; }
-            .CodeMirrir-linenumber { color: #606366!important; }
-            .CodeMirror-matchingbracket { background-color: #3B514D!important; color: #FFEF28 !important; font-weight: bold!important; }
-            div.CodeMirror-selected { background: #214283!important; }
-            .CodeMirror-hints {
-                color: #9C9E9E!important;
-                background-color: #3B3E3F !important;
-            }
-            .CodeMirror-hints .CodeMirror-hint-active {
-                background-color: #494D4E !important;
-                color: #9C9E9E !important;
-            }
+            .CodeMirror
+                background: #2B2B2B !important
+                color: #A9B7C6 !important
+            span.cm-header
+                color: #A9B7C6 !important
+            span.cm-meta
+                color: #BBB529 !important
+            span.cm-number
+                color: #6897BB !important
+            span.cm-keyword
+                color: #CC7832 !important
+                line-height: 1em !important
+                font-weight: bold !important
+            span.cm-def
+                color: #A9B7C6 !important
+                font-style: italic !important
+            span.cm-variable
+                color: #A9B7C6 !important
+            span.cm-variable-2
+                color: #A9B7C6 !important
+            span.cm-variable-3
+                color: #9876AA !important
+            span.cm-type
+                color: #AABBCC !important
+                font-weight: bold !important
+            span.cm-property
+                color: #FFC66D !important
+            span.cm-operator
+                color: #A9B7C6 !important
+            span.cm-string
+                color: #6A8759 !important
+            span.cm-string-2
+                color: #6A8759 !important
+            span.cm-comment
+                color: #61A151 !important
+                font-style: italic !important
+            span.cm-link
+                color: #CC7832 !important
+            span.cm-atom
+                color: #CC7832 !important
+            span.cm-error
+                color: #BC3F3C !important
+            span.cm-tag
+                color: #629755 !important
+                font-weight: bold !important
+                font-style: italic !important
+                text-decoration: underline !important
+            span.cm-attribute
+                color: #6897bb !important
+            span.cm-qualifier
+                color: #6A8759 !important
+            span.cm-bracket
+                color: #A9B7C6 !important
+            span.cm-builtin
+                color: #FF9E59 !important
+            span.cm-special
+                color: #FF9E59 !important
+            span.cm-matchhighlight
+                color: #FFFFFF !important
+                background-color: rgba(50, 89, 48, .7) !important
+                font-weight: normal !important
+            span.cm-searching
+                color: #FFFFFF !important
+                background-color: rgba(61, 115, 59, .7) !important
+                font-weight: normal !important
+            .CodeMirror-cursor
+                border-left: 1px solid #A9B7C6 !important
+            .CodeMirror-activeline-background
+                background: #323232 !important
+            .CodeMirror-gutters
+                background: #313335 !important
+                border-right: 1px solid #313335 !important
+            .CodeMirror-guttermarker
+                color: #FFEE80 !important
+            .CodeMirror-guttermarker-subtle
+                color: #D0D0D0 !important
+            .CodeMirrir-linenumber
+                color: #606366 !important
+            .CodeMirror-matchingbracket
+                background-color: #3B514D !important
+                color: #FFEF28 !important
+                font-weight: bold !important
+            div.CodeMirror-selected
+                background: #214283 !important
+            .CodeMirror-hints
+                color: #9C9E9E!important
+                background-color: #3B3E3F !important
+            .CodeMirror-hints .CodeMirror-hint-active
+                background-color: #494D4E !important
+                color: #9C9E9E !important
     // 旋转动画
     div[style="width: 64px; height: 64px; border-width: 4px;"]
         border-color text_color text_color #fff0 text_color !important
@@ -1292,7 +1367,8 @@ mdeditor-patch()
 
     // 个人主页「我的团队」等页面的栏
     .inner-card
-        acrylic-bg()
+        acrylic()
+        position relative
         border none !important
         border-radius 6px
         [data-v-c0f00ef2] > .lfe-caption[data-v-71731098]
@@ -1550,8 +1626,8 @@ mdeditor-patch()
             background none !important // 展开按钮如果有背景会显示出一条突兀的色带，不如没有背景
             padding: 4pt 4pt 4pt 4pt
             border-radius 5pt
-            display: flex;
-            align-items center;
+            display: flex
+            align-items center
             justify-content center
             transition-duration 1s
     .expand .expand:hover
@@ -1564,9 +1640,9 @@ mdeditor-patch()
             background none !important
             padding: 4pt 4pt 4pt 4pt
             border-radius 5pt
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex
+            align-items: center
+            justify-content: center
 // 洛谷专栏
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/article/[A-Za-z0-9]{8}$")
     // 文章区阅读进度条
@@ -1710,18 +1786,19 @@ mdeditor-patch()
             transition transform .5s
 
     if prose-bar
-        .top-bar::before
+        .article-content::before
             content ""
-            position absolute
+            position fixed
             top 0
             left 0
             right 0
             height 5px
             background sec_text_color
             opacity 0.5
-        .top-bar::after
+            z-index: -114514
+        .article-content::after
             content ""
-            position absolute
+            position fixed
             top 0
             left 0
             right 0
@@ -1729,6 +1806,7 @@ mdeditor-patch()
             background text_color
             animation bar 5s linear
             animation-timeline scroll()
+            z-index: 101
 // 洛谷新 UI
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/(article|problem/solution|ranking|problem|user/setting|discuss).*$")
     // sweetalert2样式
@@ -1789,7 +1867,7 @@ mdeditor-patch()
             background none !important
             padding: 4pt 4pt 4pt 4pt
             border-radius 5pt
-            display: flex;
+            display: flex
             align-items center
             justify-content center
             transition-duration 1s
@@ -1803,7 +1881,7 @@ mdeditor-patch()
             background none !important
             padding: 4pt 4pt 4pt 4pt
             border-radius 5pt
-            display: flex;
+            display: flex
             align-items center
             justify-content center
     // 解决查看文章看不清

@@ -1,7 +1,7 @@
 
 /* ==UserStyle==
 @name                 Argon Luogu Dev
-@version              20250703.09.39
+@version              20250703.10.14
 @namespace            https://userstyles.world/style/18510/argon-luogu-dev
 @description          洛谷美化样式。
 @author               d0j1a1701
@@ -1967,11 +1967,21 @@
         border-radius: 3pt
         .title
             color text_color
+    
+
     .ticket-banner
         acrylic-bg()
-        border-radius: 3pt
+        border-radius 3pt
         color text_color
         padding .5em
+    .ticket-banner + .sidebar-container
+            > .main .author 
+                background transparent
+            .action
+                acrylic-bg()
+                padding-top 0.5em !important
+                padding-bottom 0.5em !important
+                border-radius 3pt
     
         
 @-moz-document regexp("^https?://www.luogu.com(.cn)?/ranking\?.*$")
